@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>YouSing</title>
+	<style>
+		body {
+			font-family: arial;
+		}
+		#ip {
+			position: absolute;
+			top: 0;
+			right: 0;
+			background-color: rgba(255, 255, 255, 0.8);
+			padding: 5px 15px;
+			border-radius: 0 0 0 8px;
+			font-size: 24pt;
+			z-index: 100;
+		}
+		#song_info {
+			display: none;
+			position: fixed;
+			top: 50%;
+			transform: translate(0, -50%);
+			background-color: rgba(255, 255, 255, 0.7);
+			font-size: 32pt;
+			z-index: 10;
+			text-align: center;
+			font-weight: bold;
+			padding: 2rem;
+			width: 100%;
+		}
+
+		#message {
+			display: none;
+			border-radius: 0 0 10px 0;
+			background-color: rgba(220, 220, 0, 0.7);
+			position: fixed;
+			top: 0;
+			left: 0;
+			padding: .5rem;
+			font-size: 12pt;
+		}
+	</style>
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+	<script src="jquery.js"></script>
+	<script>if (window.module) module = window.module;</script>
+  </head>
+  <body style="margin: 0; scroll: none; background-color: #000; text-align: center;">
+	<div id="ip"></div>
+	<div id="message"></div>
+	<div id="song_info"></div>
+    <div id="player"></div>
+    <script src="https://www.youtube.com/iframe_api"></script>
+	<script src="get_language.js"></script>
+    <script>
+		// show IP
+		var url_string = window.location.href;
+		var url = new URL(url_string);
+		var ip = url.searchParams.get("ip");
+		document.getElementById('ip').innerHTML = ip;
+		
+		// uses the video id passed, if none then get first video from playlist
+		var video_id = url.searchParams.get("video_id");
+		if(!video_id) video_id = next_video(true);
+			
+		// get the screen size to use as the video size
+		var screenWidth = screen.width - 10;
+		var screenHeight = screen.height - 10;
+  
+        // create youtube player
+		var got_duration = false;
+        var player;
+        function onYouTubePlayerAPIReady() {
+            player = new YT.Player('player', {
+              width: screenWidth,
+              height: screenHeight,
+              videoId: video_id,
+			  playerVars: { 
+				'autoplay': 1,
+				'controls': 0, 
+				'rel': 0,
+				'fs': 0,
+				'modestbranding': 1,
+				'showinfo': 0
+			  },
+              events: {
+                onReady: onPlayerReady,
+                onStateChange: onPlayerStateChange
+              }
+            });
+        }
+
+        // autoplay video
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        function onPlayerStateChange(event) {
+			// when video ends, get next video
+            if(event.data === 0) {
+				next_video();
+            }
+			// when video starts playing, get the duration
+			if(event.data === 1 && !got_duration) {
+				var duration = player.getDuration();
+				var minutes = Math.floor(duration / 60);
+				var seconds = Math.floor(duration - (minutes * 60));
+				if(seconds < 10) seconds = '0' + seconds;
+				var timestamp = minutes + ':' + seconds;
+				
+				$('#song_info').append('<br/>' + timestamp);
+				$('#song_info').fadeIn(1200,function(){setTimeout(function(){$('#song_info').fadeOut(1200);}, 2400);});
+				got_duration = true;
+				
+				// update the duration on the database
+				var vid = $('#song_info').attr('db_id');
+				var query = `update_duration?vid=${vid}&duration=${timestamp}`;
+				$.get(query);
+			}
+        }
+		
+		// get the next video from playlist
+		function next_video(get_vid) {
+			var vid;
+			jQuery.ajax({
+				url: "next_video",
+				success: function(data) {
+					var v_data = JSON.parse(data);
+					console.log(v_data);
+					vid = v_data.video_id;
+					$('#song_info').html(v_data.title);
+					$('#song_info').attr('db_id',v_data.id);
+					got_duration = false;
+					if(!get_vid) {
+						player.loadVideoById(v_data.video_id);
+					}
+				},
+				async: false
+			}).fail(function(){
+				// if something goes wrong (empty playlist included), go back to main screen
+				window.location="/index.html?ip=" + ip;
+			});
+			return vid;
+		}
+
+		// Create WebSocket connection.
+		var url_string = window.location.href;
+		var url = new URL(url_string);
+		var ip = url.searchParams.get("ip");
+		const socket = new WebSocket('ws://' + ip + ':8080');
+
+		// Listen for commands from controllers
+		var message_box;
+		socket.addEventListener('open', function (event) {
+			socket.addEventListener('message', function (event) {
+				msg = JSON.parse(event.data);
+				var message = build(msg);
+				$('#message').html(message).slideDown(600,function(){
+					clearTimeout(message_box);
+					message_box = setTimeout(function(){$('#message').slideUp(600);}, 3600);
+				});
+				switch(msg.type) {
+					case 'play':
+						player.playVideo();
+						break;
+					case 'pause':
+						player.pauseVideo();
+						break;
+					case 'skip':
+						next_video();
+						break;
+				}
+			});
+		});
+    </script>
+  </body>
+</html>

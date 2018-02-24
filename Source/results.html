@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YouSing</title>
+	<style>
+		body {
+			font-family: arial;
+		}
+			
+		.overlay {
+			position:fixed;
+			display:none; 
+			background-color: rgba(0, 0, 0, 0.7);
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			z-index:10;
+		}	
+			
+		#preview {
+			text-align: center;
+			display: none;
+			position: fixed;
+			top: 50%;
+			left: 5px;
+			transform: translate(0, -50%);
+			z-index:20;
+			background-color: #000;
+			padding: 1rem 0;
+			border-radius: .5rem;
+		}
+		
+		#preview a {
+			text-decoration: none;
+			font-weight: bold;
+			color: #FFF;
+		}
+
+		#preview a:hover {
+			text-decoration: underline;
+		}
+		
+		#results img {
+			width: 40%;
+			float: left;
+			margin-right: 1rem;
+		}
+
+		.result:nth-child(odd) {
+			background-color: #DDF;
+		}
+
+		.result {
+			/*border: 4px outset;*/
+			border-radius: 5px;
+			overflow: auto;
+			padding: 1rem;
+		}
+
+		.result:hover {
+			/*border-style: inset;*/
+			cursor: pointer;
+		}
+
+		.title {
+			margin-top: 0;
+			font-weight: bold;
+		}
+		
+		.subtitle {
+			font-weight: bold;
+			border-bottom: 1px solid;
+		}
+		
+		.duration {
+			margin-top: 0;
+			float:right;
+			padding-left: .5rem;
+			text-align: right;
+			font-style: italic;
+		}
+		
+		#search_bt {
+			float:right;
+			font-size: 12pt;
+			padding: .2rem .4rem;
+		}
+		
+		#search_txt {
+			width: 100%;
+			font-size: 12pt;
+			padding: .2rem;
+		}
+		
+		#send_song {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			padding: .5rem 1rem;
+			background-color: #DDD;
+			width: 16em;
+			z-index:20;
+		}
+		
+		#send_song input {
+			width: 100%;
+			margin: .5rem 0;
+			font-size: 12pt;
+			padding: .6rem 1rem;
+		}
+		
+		.remove {
+			display: none;
+		}
+		
+		#message {
+			display: none;
+			width: calc(100% - 1rem);
+			border-radius: 0 0 10px 10px;
+			background-color: rgba(220, 220, 0, 0.7);
+			position: fixed;
+			top: 0;
+			left: 0;
+			padding: .5rem;
+			font-size: 12pt;
+		}
+		
+		#controller {
+			background-color: rgba(140, 140, 140, 0.8);
+			width: 100%;
+			border-radius: 10px 10px 0 0;
+			position: fixed;
+			bottom: 0;
+			left: 0;
+		}
+		
+		.ud_arrow {
+			height: 1cm;
+			width: 100%;
+			background-image: url('img/arr_down.png');
+			background-size: auto 50%;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+		
+		.ud_arrow:hover {
+			cursor: pointer;
+			background-color: rgba(140, 140, 140, 1);
+			border-radius: 10px 10px 0 0;
+		}
+		
+		.play {
+			background-image: url('img/play.png');
+		}
+
+		.pause {
+			background-image: url('img/pause.png');
+		}
+
+		.skip {
+			background-image: url('img/skip.png');
+		}
+
+		.playlist {
+			background-image: url('img/playlist.png');
+		}
+		
+		.buttons {
+			overflow: auto;
+		}
+		
+		.button {
+			float: left;
+			width: 25%;
+			height: 2cm;
+			vertical-align: middle;
+			text-align: center;
+			background-size: auto 50%;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+		
+		.button:hover {
+			cursor: pointer;
+			background-color: rgba(140, 140, 140, 1);
+		}
+	</style>
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+	<script src="jquery.js"></script>
+	<script>if (window.module) module = window.module;</script>
+  </head>
+  <body onload="checkCookie()">
+	<div class="overlay">
+		<div id="send_song">
+			<p class="song_title" style="font-weight:bold; text-align:justify;"></p>
+			<input type="button" value="Preview" />
+			<input type="button" class="remove" value="Remove from queue" />
+			<input type="button" value="Send to queue" />
+			<input type="button" value="Priority send" />
+			<input type="button" value="Cancel" />
+		</div>
+		<div id="preview"><div id="player"></div><br/><a href="javascript:close();">X Fechar</a></div>
+	</div>
+	<div id="message"></div>
+	<form style="padding: 5px 0 15px;">
+		<input type="submit" value="Search" id="search_bt" />
+		<div style="overflow: hidden; padding-right: 1rem;">
+			<input type="text" name="search" id="search_txt" />
+		</div>
+	</form>
+	<div id="results"></div>
+	<div id="controller">
+		<div class="ud_arrow"></div>
+		<div class="buttons">
+			<div class="button play"></div>
+			<div class="button pause"></div>
+			<div class="button skip"></div>
+			<div class="button playlist"></div>
+		</div>
+	</div>
+	<script src="https://www.youtube.com/iframe_api"></script>
+	<script src="get_language.js"></script>
+	<script>
+		var user_name;
+
+		// check if the name of the user is defined
+		function checkCookie() {
+			user_name = getCookie("username");
+			if(url.searchParams.get("username")) {
+				user_name = url.searchParams.get("username").replace(/[\"\']/g,'');
+			}
+			if (user_name != "" && user != null) {
+				setCookie("username", user, 365);
+			}
+		}
+	
+		// creates the player for the preview
+		var player;
+		var screenWidth = screen.width - 10;
+        function onYouTubePlayerAPIReady() {
+            player = new YT.Player('player', {
+              width: screenWidth,
+			  playerVars: { 
+				'controls': 0, 
+				'rel': 0,
+				'fs': 0,
+				'modestbranding': 1,
+				'showinfo': 0
+			  },
+              events: {
+                onReady: onPlayerReady
+              }
+            });
+        }
+
+        // autoplay video
+        function onPlayerReady(event) {
+			event.target.mute();
+            event.target.playVideo();
+        }
+		
+		// close the preview of the video
+		function close() {
+			$('#preview').hide();
+			$('#send_song').show();
+			player.stopVideo();
+		}
+		
+		// give actions to bottom controller buttons
+		$('.ud_arrow').click(function(){
+			$('.buttons').slideToggle();
+			if($(this).attr('style')) {
+				$(this).attr('style',null);
+			} else {
+				$(this).attr('style',"background-image: url('img/arr_up.png');");
+			}
+		});
+		$('.play').click(function(){
+			msg = {
+				type: 'play',
+				message: 'MSG_PLAY',
+				user: user_name
+			}
+			socket.send(JSON.stringify(msg));
+		});
+		$('.pause').click(function(){
+			if(confirm(lang.CONFIRM_PAUSE)) {
+				msg = {
+					type: 'pause',
+					message: 'MSG_PAUSE',
+					user: user_name
+				}
+				socket.send(JSON.stringify(msg));
+			}
+		});
+		$('.skip').click(function(){
+			if(confirm(lang.CONFIRM_SKIP)) {
+				msg = {
+					type: 'skip',
+					message: 'MSG_SKIP',
+					user: user_name
+				}
+				socket.send(JSON.stringify(msg));
+			}
+		});
+		$('.playlist').click(show_playlist);
+		
+		// show the current playlist and song history
+		function show_playlist(page) {
+			var address = "view_playlist";
+			if(page) {address += "?page=" + page;}
+			$.get(address, function(res) {
+				$('#results').html(build(lang,res));
+				$('#results .result').click(function() {
+					$('#send_song').attr('vid',$(this).attr('vid')).parent().show();
+					$('#send_song .song_title').html($(this).find('.title').html());
+					if($(this).attr('played') != 1) {
+						$('#send_song .remove').show();
+					}
+				});
+			});
+		}
+		
+		// send the search to main program and show the result
+		$('form').submit(function(event){
+			event.preventDefault();
+			var data = encodeURIComponent($('[name="search"]').val() + ' karaoke');
+			$.get("search?data=" + data, function(res) {
+				$('#results').html(res);
+				$('#results .result').click(function() {
+					$('#send_song').attr('vid',$(this).attr('vid')).parent().show();
+					$('#send_song .song_title').html($(this).find('.title').html());
+				});
+			});
+		});
+		$('#search_bt').attr('value',lang.BT_SEARCH);
+
+		// define the behavior of the buttons from song management
+		$('#send_song input').eq(0).click(function() {
+			var vid = $(this).parent().attr('vid');
+			player.loadVideoById(vid);
+			$('#preview').show();
+			$('#send_song').hide();
+		}).attr('value',lang.MENU_PREVIEW);
+		
+		$('#send_song input').eq(1).click(function() {
+			var vid = $(this).parent().attr('vid');
+			var songdata = {
+				'db_id': $('.result[vid="'+vid+'"]').attr('db_id'),
+				'title': encodeURIComponent($('.result[vid="'+vid+'"] .title').html()),
+				'user': encodeURIComponent(user_name)
+			}
+			var data = JSON.stringify(songdata);
+			$.get("remove_song?data=" + data, function(res) {
+				$('.overlay').hide();
+				$('#send_song .remove').hide();
+				show_playlist();
+			});
+		}).attr('value',lang.MENU_REMOVE);	
+		
+		$('#send_song input').eq(2).click(function() {
+			var vid = $(this).parent().attr('vid');
+			send_song($('.result[vid="'+vid+'"]'));
+		}).attr('value',lang.MENU_SEND);
+		
+		$('#send_song input').eq(3).click(function() {
+			if(confirm(lang.CONFIRM_PRIORITY)) {
+				var vid = $(this).parent().attr('vid');
+				send_song($('.result[vid="'+vid+'"]'),true);
+			}
+		}).attr('value',lang.MENU_PRIORITY);
+		
+		$('#send_song input').eq(4).click(function() {
+			$('.overlay').hide();
+			$('#send_song .remove').hide();
+		}).attr('value',lang.MENU_CANCEL);
+
+		// send song to playlist. if second parameter is true, send it to beginning of playlist
+		function send_song(row, priority) {
+			var songdata = {
+				'title': encodeURIComponent($(row).find('.title').html()),
+				'video_id': $(row).attr('vid'),
+				'thumbnail': $(row).find('img').attr('src')
+			}
+			var data = JSON.stringify(songdata);
+			var req = 'add_song?data=' + data + '&user=' + encodeURIComponent(user_name);
+			if(priority) req += '&priority=true';
+			$.get(req, function(res) {
+				$('.overlay').hide();
+				$('#send_song .remove').hide();
+			});
+		}
+
+		// Create WebSocket connection.
+		var url_string = window.location.href;
+		var url = new URL(url_string);
+		var ip = url.searchParams.get("ip");
+		const socket = new WebSocket('ws://' + ip + ':8080');
+
+		// Listen for new songs
+		var message_box;
+		socket.addEventListener('open', function (event) {
+			socket.addEventListener('message', function (event) {
+				msg = JSON.parse(event.data);
+				var message = build(msg);
+				$('#message').html(message).slideDown(600,function(){
+					clearTimeout(message_box);
+					message_box = setTimeout(function(){$('#message').slideUp(600);}, 3600);
+				});
+			});
+		});
+	</script>
+  </body>
+</html>

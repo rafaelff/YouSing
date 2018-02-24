@@ -1,0 +1,33 @@
+{
+	"LANGUAGE": "Português",
+
+	"MENU_SEARCH": "Busca",
+	"MENU_CONFIG": "Ajustes",
+	"MENU_HELP": "Como usar",
+	
+	"MENU_PREVIEW": "Visualizar",
+	"MENU_REMOVE": "Remover da lista",
+	"MENU_SEND": "Enviar à lista",
+	"MENU_PRIORITY": "Envio prioritário",
+	"MENU_CANCEL": "Cancelar",
+	
+	"BT_SEARCH": "Buscar",
+	"BT_SEND": "Enviar",
+		
+	"CONFIRM_PAUSE": "Tem certeza de que deseja pausar essa música?",
+	"CONFIRM_SKIP": "Tem certeza de que deseja pular essa música?",
+	"CONFIRM_PRIORITY": "Isso enviará a música selecionada antes de qualquer outra já presente na playlist. Tem certeza?",
+	
+	"MSG_INPUTNAME": "Por favor insira seu nome:",
+	"MSG_LANGUAGES": "Selecione seu idioma:",
+	"MSG_PLAY": "{user} continuou a música.",
+	"MSG_PAUSE": "{user} pausou a música.",
+	"MSG_SKIP": "{user} pulou a música.",
+	"MSG_ADD": "{user} adicionou {title} à playlist{priority}.",
+	"MSG_PRIORITY": " como prioridade",
+	"MSG_REMOVE": "{user} removeu a música {title} da playlist.",
+	"MSG_COPYRIGHT": "Criado por",
+	
+	"TITLE_PLAYLIST": "Playlist atual",
+	"TITLE_HISTORY": "Histórico de músicas"
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YouSing</title>
+	<style>
+		body {
+			font-family: arial;
+		}
+		
+		#results {
+			background-color: #FFF;
+			z-index: 10;
+		}
+		
+		#results img {
+			height: 90px;
+			float: left;
+			margin-right: 1rem;
+		}
+
+		.result {
+			background-color: #DDF;
+			border-radius: 5px;
+			overflow: hidden;
+			padding: 1rem;
+			margin: .5rem;
+			cursor: pointer;
+			height: 90px;
+			width: calc(33% - 3rem);
+			float: left;
+		}
+
+		.title {
+			margin-top: 0;
+			font-weight: bold;
+		}
+		
+		.subtitle {
+			font-weight: bold;
+			border-bottom: 1px solid;
+		}
+		
+		.duration {
+			margin-top: 0;
+			float:right;
+			padding-left: .5rem;
+			text-align: right;
+			font-style: italic;
+		}
+		
+		#search_bt {
+			float:right;
+			font-size: 12pt;
+			padding: .2rem .4rem;
+		}
+		
+		#search_txt {
+			width: 100%;
+			font-size: 12pt;
+			padding: .2rem;
+		}
+		
+		#send_song {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			padding: .5rem 1rem;
+			background-color: #DDD;
+			width: 16em;
+			z-index:20;
+		}
+		
+		#send_song input {
+			width: 100%;
+			margin: .5rem 0;
+			font-size: 12pt;
+			padding: .6rem 1rem;
+
+	</style>
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+	<script src="jquery.js"></script>
+	<script>if (window.module) module = window.module;</script>
+  </head>
+  <body>
+	<form style="padding: 5px 0 15px;">
+		<input type="submit" value="Search" id="search_bt" />
+		<div style="overflow: hidden; padding-right: 1rem;">
+			<input type="text" name="search" id="search_txt" />
+		</div>
+	</form>
+	<div id="results"></div>
+	<script>
+		// send the search to main program and show the result
+		$('form').submit(function(event){
+			event.preventDefault();
+			var data = encodeURIComponent($('[name="search"]').val() + ' karaoke');
+			$.get("search?data=" + data, function(res) {
+				$('#results').html(res);
+				$('#results .result').click(function() {
+					send_song($(this));
+				});
+			});
+		});
+		$('#search_bt').attr('value',lang.BT_SEARCH);
+
+		// send song to playlist
+		function send_song(row) {
+			var songdata = {
+				'title': encodeURIComponent($(row).find('.title').html()),
+				'video_id': $(row).attr('vid'),
+				'thumbnail': $(row).find('img').attr('src')
+			}
+			var data = JSON.stringify(songdata);
+			var req = 'add_song?data=' + data;
+			$.get(req, function(res) {
+				$('.overlay').hide();
+				$('#send_song .remove').hide();
+			});
+		}
+	</script>
+  </body>
+</html>

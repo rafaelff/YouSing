@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YouSing</title>
+	<style>
+	<style>
+		html, body {
+			font-family: arial;
+		}
+		.textinput {
+			width: calc(100% - 1rem);
+			font-size: 12pt;
+			padding: .2rem;
+		}
+		.sendbt {
+			text-align: center;
+		}
+		.sendbt input {
+			background-color: #ff1e1e;
+			border-radius: .5rem;
+			border: none;
+			color: #fff;
+			font-size: 16pt;
+			padding: .5rem 2rem;
+			-moz-box-shadow: inset 4px 4px 4px rgba(255, 255, 255, .4), inset -4px -4px 4px rgba(0, 0, 0, .4);
+			-webkit-box-shadow: inset 4px 4px 4px rgba(255, 255, 255, .4), inset -4px -4px 4px rgba(0, 0, 0, .4);
+			box-shadow: inset 4px 4px 4px rgba(255, 255, 255, .4), inset -4px -4px 4px rgba(0, 0, 0, .4);
+		}
+		form {
+			font-family: arial;
+			font-size: 16pt;
+			background-color: #ccf;
+			padding: .5rem;
+			border-radius: .5rem;
+		}
+	</style>
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+	<script src="jquery.js"></script>
+	<script>if (window.module) module = window.module;</script>
+  </head>
+  <body>
+	<img src="img/ys_logo.png" width="100%" /><br/><br/>
+	<form action="results.html" method="get" width="100%">
+		<input type="hidden" name="ip" />
+		<p text="MSG_INPUTNAME">Please enter your name:</p>
+		<input type="text" name="username" class="textinput" />
+		<p text="MSG_LANGUAGES">Select your language:</p>
+		<div id="languages"></div>
+		<p class="sendbt"><input type="submit" val="BT_SEND" value="Send" /></p>
+	</form>
+	<script src="get_language.js"></script>
+	<script>
+	// update page with selected language
+	function update() {
+		$('[text]').each(function() {
+			$(this).html(lang[$(this).attr('text')]);
+		});
+		$('[type="submit"]').each(function() {
+			$(this).attr('value',lang[$(this).attr('val')]);
+		});
+	}
+	update();
+	
+	// populate the languages div with the available languages
+	$.get("get_languages", function(res) {
+		$('#languages').html(res);
+		$('#languages input').click(function() {
+			language = $(this).attr('value');
+			get_langfile();
+			update();
+		});
+	});
+	$('[name="ip"]').val(url.searchParams.get("ip"));
+	</script>
+  </body>
+</html>

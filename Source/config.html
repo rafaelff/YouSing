@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Karaoke - Settings</title>
+	<style>
+		body {
+			font-family: arial;
+		}
+	</style>
+  </head>
+  <body>
+	<p text="MSG_LANGUAGES">Select your language:</p>
+	<div id="languages"></div>
+  	<script src="get_language.js"></script>
+	<script>
+	// populate the languages div with the available languages
+	$.get("get_languages", function(res) {
+		$('#languages').html(res);
+		$('#languages input').click(function() {
+			language = $(this).attr('value');
+			setCookie("language", language, 365);
+			get_langfile();
+			update();
+		});
+	});
+	</script>
+  </body>
+</html>

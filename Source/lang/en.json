@@ -1,0 +1,33 @@
+{
+	"LANGUAGE": "English",
+
+	"MENU_SEARCH": "Song search",
+	"MENU_CONFIG": "Settings",
+	"MENU_HELP": "How to use",
+	
+	"MENU_PREVIEW": "Preview",
+	"MENU_REMOVE": "Remove from queue",
+	"MENU_SEND": "Send to queue",
+	"MENU_PRIORITY": "Priority send",
+	"MENU_CANCEL": "Cancel",
+	
+	"BT_SEARCH": "Search",
+	"BT_SEND": "Send",
+	
+	"CONFIRM_PAUSE": "Are you sure you want to pause the song?",
+	"CONFIRM_SKIP": "Are you sure you want to skip this song?",
+	"CONFIRM_PRIORITY": "This will send the selected song before any other song already in the playlist. Are you sure?",
+	
+	"MSG_INPUTNAME": "Please enter your name:",
+	"MSG_LANGUAGES": "Select your language:",
+	"MSG_PLAY": "{user} resumed the song.",
+	"MSG_PAUSE": "{user} paused the song.",
+	"MSG_SKIP": "{user} skipped the song.",
+	"MSG_ADD": "{user} added {title} to the playlist{priority}.",
+	"MSG_PRIORITY": " as a priority request",
+	"MSG_REMOVE": "{user} removed the song {title} from the playlist.",
+	"MSG_COPYRIGHT": "Created by",
+	
+	"TITLE_PLAYLIST": "Current Playlist",
+	"TITLE_HISTORY": "Song History"
+}
