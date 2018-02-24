@@ -1,7 +1,7 @@
-# YouSing
+![YouSing](https://raw.githubusercontent.com/rafaelff/YouSing/master/Source/img/ys_logo.png)
 
 ## About
-YouSing is a karaoke program for parties built on node. It searches YouTube for karaoke version of songs and plays it on the server's screen. Multiple users can connect to it with their phones without need to install anything on the mobile device. The songs added are put in a list and played in order.
+YouSing is a karaoke program for parties built on `Node.js`. It searches YouTube for karaoke version of songs and plays it on the server's screen. Multiple users can connect to it with their phones without need to install anything on the mobile device. The songs added are put in a list and played in order.
 
 ## Features
 - Huge and constantly growing catalog of songs: Plays any song available as a karaoke version on YouTube
@@ -15,6 +15,11 @@ YouSing is a karaoke program for parties built on node. It searches YouTube for 
 - Localization: support for multiple languages
 
 ## How to use
+#### Installation
+- Install Node.js if you don't have it yet
+- Extract the files
+- Run by command line `npm install` on the folder where the files were extracted 
+#### Preparation
 - Start the server on a computer (a Raspberry Pi with Raspbian is suggested for portability)
 - Connect the computer in a big screen `optional`
 - Make sure the computer is connected to the internet
@@ -26,6 +31,16 @@ YouSing is a karaoke program for parties built on node. It searches YouTube for 
 
 ** the program works without client controllers, but it's recommended for a better experience
 
+## Dependencies
+- Node.js
+  - opener
+  - quick-local-ip
+  - sqlite3
+  - ws
+  - youtube-node
+
 ## To-do list
+- [ ] Make a help file
 - [ ] Find a way to avoid showing unavailable videos on the search results
 - [ ] Pack the application for easy to install
+- [ ] Improve the quality of the icon
