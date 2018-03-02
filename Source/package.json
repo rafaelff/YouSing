@@ -1,8 +1,11 @@
 {
-  "name": "YouSing",
+  "name": "yousing",
+  "description": "YouSing is a karaoke program for parties built on Node.js. It searches YouTube for karaoke version of songs and plays it on the server's screen. Multiple users can connect to it with their phones without need to install anything on the mobile device. The songs added are put in a list and played in order.",
   "version": "0.9.0",
   "main": "main.js",
-  "bin": "main.js",
+  "bin": {
+    "YouSing": "main.js"
+  },
   "dependencies": {
     "opener": "^1.4.3",
     "quick-local-ip": "^1.0.7",
@@ -19,5 +22,25 @@
       "ys_icon.ico",
       "*.html"
     ]
-  }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafaelff/YouSing.git"
+  },
+  "author": "Rafael Faria Felix",
+  "bugs": {
+    "url": "https://github.com/rafaelff/YouSing/issues"
+  },
+  "homepage": "https://github.com/rafaelff/YouSing",
+  "devDependencies": {},
+  "keywords": [
+    "karaoke",
+    "youtube",
+    "sing",
+    "music"
+  ],
+  "license": "GPL-3.0"
 }
