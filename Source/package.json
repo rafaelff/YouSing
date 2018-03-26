@@ -13,16 +13,6 @@
     "ws": "^4.0.0",
     "youtube-node": "^1.3.2"
   },
-  "pkg": {
-    "assets": [
-      "img/*",
-      "db.db",
-      "get_language.js",
-      "jquery.js",
-      "ys_icon.ico",
-      "*.html"
-    ]
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
