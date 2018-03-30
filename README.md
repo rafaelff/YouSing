@@ -16,6 +16,10 @@ YouSing is a karaoke program for parties built on `Node.js`. It searches YouTube
 
 ## How to use
 #### Installation
+##### Windows 64 bits
+If you're running Windows 64bits, then all you need to do is download [this installer](https://github.com/rafaelff/YouSing/raw/master/YouSing-x64.exe) and run it!
+Unfortunatelly, no installer is provided yet for 32bits version of Windows due to some issues with the packager. If that's your case, please read the next session on how to run it by source.
+##### Running from source
 - Install Node.js if you don't have it yet
 - Extract the files
 - Run by command line `npm install` on the folder where the files were extracted 
