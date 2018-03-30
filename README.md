@@ -48,3 +48,4 @@ Unfortunatelly, no installer is provided yet for 32bits version of Windows due t
 - [ ] Find a way to avoid showing unavailable videos on the search results
 - [ ] Pack the application for easy to install
 - [ ] Improve the quality of the icon
+- [ ] Add a "personal list" feature, where the users can rate the song they just sang and later check the "better" songs for them to sing
