@@ -1,5 +1,10 @@
 ![YouSing](https://raw.githubusercontent.com/rafaelff/YouSing/master/Source/img/ys_logo.png)
 
+* [English](#english)
+* [Português](#português)
+
+# English
+
 ## About
 YouSing is a karaoke program for parties built on `Node.js`. It searches YouTube for karaoke version of songs and plays it on the server's screen. Multiple users can connect to it with their phones without need to install anything on the mobile device. The songs added are put in a list and played in order.
 
@@ -50,3 +55,47 @@ Unfortunatelly, no installer is provided yet for 32bits version of Windows due t
 - [ ] Improve the quality of the icon
 - [ ] Add a "personal list" feature, where the users can rate the song they just sang and later check the "better" songs for them to sing
 - [x] Add a "loading" when sending files to the list to avoid multiple sendings when the server takes long to reply
+
+# Português
+
+## Sobre
+O YouSing é um programa de karaokê para festas criado no `Node.js`. Ele pesquisa no YouTube por músicas com versão de karaokê e as reproduz na tela do servidor. Vários usuários podem se conectar a ele com seus telefones sem precisar instalar nada no dispositivo móvel. As músicas adicionadas são colocadas em uma lista e reproduzidas em ordem.
+
+## Características
+- Vasto catálogo de músicas e em constante crescimento: reproduz qualquer música disponível no YouTube como versão de karaokê
+- Controle o fluxo de músicas com seu dispositivo móvel
+  - Pesquise e adicione músicas à fila
+  - Reproduza/pause a execução
+  - Pule para a próxima música da fila
+  - Veja o que vem a seguir na reprodução e o que foi reproduzido anteriormente
+- Vários usuários simultâneos
+- Não é necessário instalar nada nos dispositivos clientes: basta acessar o servidor com o navegador do seu celular
+- Localização: suporte para vários idiomas
+
+## Como usar
+#### Instalação
+##### Windows 64 bits
+Se você está executando o Windows 64bits, então tudo que você precisa fazer é baixar [este instalador](https://github.com/rafaelff/YouSing/raw/master/YouSing-x64.exe) e executá-lo! Infelizmente, ainda não está disponível o instalador para a versão 32bits do Windows devido a alguns problemas com o empacotador. Se esse for o seu caso, leia a próxima sessão sobre como executá-lo pelo código fonte.
+##### Executando pelo código fonte
+- Instale o Node.js se ainda não o tiver
+- Extraia os arquivos
+- Execute pela linha de comando `npm install` na pasta onde os arquivos foram extraídos
+#### Preparação
+- Inicie o servidor em um computador (um Raspberry Pi com Raspbian é sugerido para maior portabilidade)
+- Conecte o computador em uma tela grande `opcional`
+- Certifique-se de que o computador está conectado à internet
+- Configure um amplificador com alguns microfones `opcional`
+- Ligue o som do computador no amplificador `opcional`
+- Conecte o celular dos cantores à mesma rede local que o servidor **
+- Acesse no navegador do celular o endereço IP fornecido na tela do servidor **
+- Procure músicas, adicione-as à playlist e divirta-se cantando junto com seus amigos!
+
+** o programa funciona sem os controles remotos, mas é recomendado para uma melhor experiência
+
+## Dependências
+- Node.js
+  - opener
+  - quick-local-ip
+  - sqlite3
+  - ws
+  - youtube-node
