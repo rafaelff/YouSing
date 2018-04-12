@@ -95,7 +95,7 @@
 			padding: .2rem;
 		}
 		
-		#send_song {
+		#send_song, #loading {
 			position: fixed;
 			top: 50%;
 			left: 50%;
@@ -104,6 +104,13 @@
 			background-color: #DDD;
 			width: 16em;
 			z-index:20;
+		}
+		
+		#loading {
+			z-index:30;
+			background-color: #FFF;
+			text-align: center;
+			display: none;
 		}
 		
 		#send_song input {
@@ -204,6 +211,9 @@
 			<input type="button" value="Cancel" />
 		</div>
 		<div id="preview"><div id="player"></div><br/><a href="javascript:close();">X Fechar</a></div>
+		<div id="loading">
+			<img src="img/loading.gif" width="100%" />
+		</div>
 	</div>
 	<div id="message"></div>
 	<form style="padding: 5px 0 15px;">
@@ -356,10 +366,13 @@
 			}
 			var data = JSON.stringify(songdata);
 			$.get("remove_song?data=" + data, function(res) {
-				$('.overlay').hide();
+				$('.overlay, #loading').hide();
 				$('#send_song .remove').hide();
+				$('#send_song').show();
 				show_playlist();
 			});
+			$('#loading').show();
+			$('#send_song').hide();
 		}).attr('value',lang.MENU_REMOVE);	
 		
 		$('#send_song input').eq(2).click(function() {
@@ -390,9 +403,12 @@
 			var req = 'add_song?data=' + data + '&user=' + encodeURIComponent(user_name);
 			if(priority) req += '&priority=true';
 			$.get(req, function(res) {
-				$('.overlay').hide();
+				$('.overlay, #loading').hide();
 				$('#send_song .remove').hide();
+				$('#send_song').show();
 			});
+			$('#loading').show();
+			$('#send_song').hide();
 		}
 
 		// Create WebSocket connection.
