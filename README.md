@@ -44,8 +44,9 @@ Unfortunatelly, no installer is provided yet for 32bits version of Windows due t
   - youtube-node
 
 ## To-do list
-- [ ] Make a help file
+- [ ] Make an English help file and make the link point to the correct language file depending on the host settings
 - [ ] Find a way to avoid showing unavailable videos on the search results
 - [ ] Pack the application for easy to install
 - [ ] Improve the quality of the icon
 - [ ] Add a "personal list" feature, where the users can rate the song they just sang and later check the "better" songs for them to sing
+- [x] Add a "loading" when sending files to the list to avoid multiple sendings when the server takes long to reply
