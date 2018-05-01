@@ -19,6 +19,13 @@ YouSing is a karaoke program for parties built on `Node.js`. It searches YouTube
 - No need to install anything on client devices: Just access the server with your mobile browser
 - Localization: support for multiple languages
 
+## Screenshots
+![Main screen](https://github.com/rafaelff/YouSing/raw/master/Screenshots/01%20main%20screen.png) | ![Song search on main screen](https://github.com/rafaelff/YouSing/raw/master/Screenshots/02%20search%20on%20main.png)
+-- | --
+![Song playing](https://github.com/rafaelff/YouSing/raw/master/Screenshots/03%20song%20playing.png) |
+![Login page on mobile phone](https://github.com/rafaelff/YouSing/raw/master/Screenshots/04%20login%20on%20mobile.png) | ![Search page on mobile phone](https://github.com/rafaelff/YouSing/raw/master/Screenshots/05%20search%20on%20mobile.png) 
+![Sending song to play](https://github.com/rafaelff/YouSing/raw/master/Screenshots/06%20send%20song%20on%20mobile.png) |
+
 ## How to use
 #### Installation
 ##### Windows 64 bits
@@ -27,7 +34,9 @@ Unfortunatelly, no installer is provided yet for 32bits version of Windows due t
 ##### Running from source
 - Install Node.js if you don't have it yet
 - Extract the files
-- Run by command line `npm install` on the folder where the files were extracted 
+- Run by command line `npm install` on the folder where the files were extracted
+
+**Important:** On linux, make sure to run as root `sudo node main.js` or else you wont be able to connect the mobile devices
 #### Preparation
 - Start the server on a computer (a Raspberry Pi with Raspbian is suggested for portability)
 - Connect the computer in a big screen `optional`
@@ -72,6 +81,13 @@ O YouSing é um programa de karaokê para festas criado no `Node.js`. Ele pesqui
 - Não é necessário instalar nada nos dispositivos clientes: basta acessar o servidor com o navegador do seu celular
 - Localização: suporte para vários idiomas
 
+## Screenshots
+![Main screen](https://github.com/rafaelff/YouSing/raw/master/Screenshots/01%20main%20screen.png) | ![Song search on main screen](https://github.com/rafaelff/YouSing/raw/master/Screenshots/02%20search%20on%20main.png)
+-- | --
+![Song playing](https://github.com/rafaelff/YouSing/raw/master/Screenshots/03%20song%20playing.png) |
+![Login page on mobile phone](https://github.com/rafaelff/YouSing/raw/master/Screenshots/04%20login%20on%20mobile.png) | ![Search page on mobile phone](https://github.com/rafaelff/YouSing/raw/master/Screenshots/05%20search%20on%20mobile.png) 
+![Sending song to play](https://github.com/rafaelff/YouSing/raw/master/Screenshots/06%20send%20song%20on%20mobile.png) |
+
 ## Como usar
 #### Instalação
 ##### Windows 64 bits
@@ -80,6 +96,8 @@ Se você está executando o Windows 64bits, então tudo que você precisa fazer 
 - Instale o Node.js se ainda não o tiver
 - Extraia os arquivos
 - Execute pela linha de comando `npm install` na pasta onde os arquivos foram extraídos
+
+**Importante:** No linux, execute como root `sudo node main.js` se não você não conseguirá conectar os aparelhos móveis
 #### Preparação
 - Inicie o servidor em um computador (um Raspberry Pi com Raspbian é sugerido para maior portabilidade)
 - Conecte o computador em uma tela grande `opcional`
