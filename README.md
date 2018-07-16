@@ -54,14 +54,14 @@ Unfortunatelly, no installer is provided yet for 32bits version of Windows due t
 ** the program works without client controllers, but it's recommended for a better experience
 
 ## Troubleshooting
-**Problem:** The program opens, but when you try playing a song it closes by itself.
-**Cause:** It may not have permission to access it's own files.
+**Problem:** The program opens, but when you try playing a song it closes by itself.<br/>
+**Cause:** It may not have permission to access it's own files.<br/>
 **Solutions:**
 - Try changing the permissions of the installation folder, allowing everyone to read and write.
 - Try executing the program as administrator.
 
-**Problem:** The program doesn't show the ip address on the top right corner of the screen, or the mobile phones can't connect to the server.
-**Cause:** The program cannot open the port to listen to the mobile devices.
+**Problem:** The program doesn't show the ip address on the top right corner of the screen, or the mobile phones can't connect to the server.<br/>
+**Cause:** The program cannot open the port to listen to the mobile devices.<br/>
 **Solutions:**
 - Try adding YouSing in the firewall's list of allowed programs.
 - Try executing the program as administrator.
@@ -134,14 +134,14 @@ Infelizmente, ainda não está disponível o instalador para a versão 32bits do
 ** o programa funciona sem os controles remotos, mas é recomendado para uma melhor experiência
 
 ## Troubleshooting
-**Problema:** O programa executa, mas quando uma música é enviada para tocar o programa fecha sozinho.
-**Causa:** Pode ser que o programa não tem acesso aos seus próprios arquivos.
+**Problema:** O programa executa, mas quando uma música é enviada para tocar o programa fecha sozinho.<br/>
+**Causa:** Pode ser que o programa não tem acesso aos seus próprios arquivos.<br/>
 **Soluções:**
 - Tente mudar as permissões do diretórios de instalação, permitindo a todos leitura e execução.
 - Tente executar o programa como administrador.
 
-**Problema:** O programa não mostra o endereço IP no canto superior direito da tela, ou os aparelhos telefônicos não conseguem conectar-se com o servidor.
-**Causa:** O programa não consegue abrir a porta para escutar os aparelhos telefônicos.
+**Problema:** O programa não mostra o endereço IP no canto superior direito da tela, ou os aparelhos telefônicos não conseguem conectar-se com o servidor.<br/>
+**Causa:** O programa não consegue abrir a porta para escutar os aparelhos telefônicos.<br/>
 **Soluções:**
 - Tente adicionar YouSing à lista do firewall de programas seguros.
 - Tente executar o programa como administrador.
