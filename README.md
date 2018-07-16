@@ -135,17 +135,13 @@ Infelizmente, ainda não está disponível o instalador para a versão 32bits do
 
 ## Troubleshooting
 **Problema:** O programa executa, mas quando uma música é enviada para tocar o programa fecha sozinho.
-
 **Causa:** Pode ser que o programa não tem acesso aos seus próprios arquivos.
-
 **Soluções:**
 - Tente mudar as permissões do diretórios de instalação, permitindo a todos leitura e execução.
 - Tente executar o programa como administrador.
 
 **Problema:** O programa não mostra o endereço IP no canto superior direito da tela, ou os aparelhos telefônicos não conseguem conectar-se com o servidor.
-
 **Causa:** O programa não consegue abrir a porta para escutar os aparelhos telefônicos.
-
 **Soluções:**
 - Tente adicionar YouSing à lista do firewall de programas seguros.
 - Tente executar o programa como administrador.
