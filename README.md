@@ -32,6 +32,7 @@ YouSing is a karaoke program for parties built on `Node.js`. It searches YouTube
 If you're running Windows 64bits, then all you need to do is download [this installer](https://github.com/rafaelff/YouSing/raw/master/YouSing-x64.exe) and run it!
 
 **Important:** Your antivirus may prevent the software from installing, since it's not signed, but there is nothing suspicious on the code (you can check the source here, on github). In this case, you may need to disable it temporarily and/or add the app on the trusted list.
+https://www.virustotal.com/#/url/378891d7549aaa7ee69347c42b52e60fa493237e5388e9a878ddcacfa37cd1f5/detection
 
 Unfortunatelly, no installer is provided yet for 32bits version of Windows due to some issues with the packager. If that's your case, please read the next session on how to run it by source.
 ##### Running from source
@@ -111,6 +112,7 @@ O YouSing é um programa de karaokê para festas criado no `Node.js`. Ele pesqui
 Se você está executando o Windows 64bits, então tudo que você precisa fazer é baixar [este instalador](https://github.com/rafaelff/YouSing/raw/master/YouSing-x64.exe) e executá-lo!
 
 **Importante:** Seu antivirus pode impedir o software de ser instalado por ele não ser assinado, mas não há nada suspeito no código (você pode conferir o código fonte aqui, no github). Nesse caso, você pode ter que desabilitar o antivirus temporariamente e/ou adicionar o aplicativo na lista de programas confiáveis.
+https://www.virustotal.com/#/url/378891d7549aaa7ee69347c42b52e60fa493237e5388e9a878ddcacfa37cd1f5/detection
 
 Infelizmente, ainda não está disponível o instalador para a versão 32bits do Windows devido a alguns problemas com o empacotador. Se esse for o seu caso, leia a próxima sessão sobre como executá-lo pelo código fonte.
 
