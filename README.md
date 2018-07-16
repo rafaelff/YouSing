@@ -83,6 +83,8 @@ Unfortunatelly, no installer is provided yet for 32bits version of Windows due t
 - [ ] Change the menu icon
 - [ ] Add a verification when sending to the list to not allow sending songs that are already on the list
 - [ ] Add Bootstrap or jQuery UI to improve the design and user experience
+- [ ] Change the confirmation boxes to modal
+- [ ] Add pagination to the results
 - [ ] Add a "personal list" feature, where the users can rate the song they just sang and later check the "better" songs for them to sing
 - [ ] Add a "mostly played" list, with suggestions of tracks based on what people sang on that device
 - [ ] Fix the files permission issue
