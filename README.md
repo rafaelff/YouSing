@@ -30,11 +30,14 @@ YouSing is a karaoke program for parties built on `Node.js`. It searches YouTube
 #### Installation
 ##### Windows 64 bits
 If you're running Windows 64bits, then all you need to do is download [this installer](https://github.com/rafaelff/YouSing/raw/master/YouSing-x64.exe) and run it!
+**Important:** Your antivirus may prevent the software from installing, since it's not signed, but there is nothing suspicious on the code (you can check the source here, on github). In this case, you may need to disable it temporarily and/or add the app on the trusted list.
+
 Unfortunatelly, no installer is provided yet for 32bits version of Windows due to some issues with the packager. If that's your case, please read the next session on how to run it by source.
 ##### Running from source
 - Install Node.js if you don't have it yet
 - Extract the files
 - Run by command line `npm install` on the folder where the files were extracted
+- Launch the app by command line `node main.js` on the folder installed
 
 **Important:** On linux, make sure to run as root `sudo node main.js` or else you wont be able to connect the mobile devices
 #### Preparation
@@ -48,6 +51,19 @@ Unfortunatelly, no installer is provided yet for 32bits version of Windows due t
 - Search for songs, add them to the playlist and enjoy singing together with your friends!
 
 ** the program works without client controllers, but it's recommended for a better experience
+
+## Troubleshooting
+**Problem:** The program opens, but when you try playing a song it closes by itself.
+**Cause:** It may not have permission to access it's own files.
+**Solutions:**
+- Try changing the permissions of the installation folder, allowing everyone to read and write.
+- Try executing the program as administrator.
+
+**Problem:** The program doesn't show the ip address on the top right corner of the screen, or the mobile phones can't connect to the server.
+**Cause:** The program cannot open the port to listen to the mobile devices.
+**Solutions:**
+- Try adding YouSing in the firewall's list of allowed programs.
+- Try executing the program as administrator.
 
 ## Dependencies
 - Node.js
@@ -82,20 +98,23 @@ O YouSing é um programa de karaokê para festas criado no `Node.js`. Ele pesqui
 - Localização: suporte para vários idiomas
 
 ## Screenshots
-![Main screen](https://github.com/rafaelff/YouSing/raw/master/Screenshots/01%20main%20screen.png) | ![Song search on main screen](https://github.com/rafaelff/YouSing/raw/master/Screenshots/02%20search%20on%20main.png)
+![Tela principal](https://github.com/rafaelff/YouSing/raw/master/Screenshots/01%20main%20screen.png) | ![Busca na tela principal](https://github.com/rafaelff/YouSing/raw/master/Screenshots/02%20search%20on%20main.png)
 -- | --
-![Song playing](https://github.com/rafaelff/YouSing/raw/master/Screenshots/03%20song%20playing.png) |
-![Login page on mobile phone](https://github.com/rafaelff/YouSing/raw/master/Screenshots/04%20login%20on%20mobile.png) | ![Search page on mobile phone](https://github.com/rafaelff/YouSing/raw/master/Screenshots/05%20search%20on%20mobile.png) 
-![Sending song to play](https://github.com/rafaelff/YouSing/raw/master/Screenshots/06%20send%20song%20on%20mobile.png) |
+![Música executando](https://github.com/rafaelff/YouSing/raw/master/Screenshots/03%20song%20playing.png) |
+![Página de login no telefone celular](https://github.com/rafaelff/YouSing/raw/master/Screenshots/04%20login%20on%20mobile.png) | ![Página de busca no telefone celular](https://github.com/rafaelff/YouSing/raw/master/Screenshots/05%20search%20on%20mobile.png) 
+![Enviando música para a lista](https://github.com/rafaelff/YouSing/raw/master/Screenshots/06%20send%20song%20on%20mobile.png) |
 
 ## Como usar
 #### Instalação
 ##### Windows 64 bits
 Se você está executando o Windows 64bits, então tudo que você precisa fazer é baixar [este instalador](https://github.com/rafaelff/YouSing/raw/master/YouSing-x64.exe) e executá-lo! Infelizmente, ainda não está disponível o instalador para a versão 32bits do Windows devido a alguns problemas com o empacotador. Se esse for o seu caso, leia a próxima sessão sobre como executá-lo pelo código fonte.
+**Importante:** Seu antivirus pode impedir o software de ser instalado por ele não ser assinado, mas não há nada suspeito no código (você pode conferir o código fonte aqui, no github). Nesse caso, você pode ter que desabilitar o antivirus temporariamente e/ou adicionar o aplicativo na lista de programas confiáveis.
+
 ##### Executando pelo código fonte
 - Instale o Node.js se ainda não o tiver
 - Extraia os arquivos
 - Execute pela linha de comando `npm install` na pasta onde os arquivos foram extraídos
+- Abra o aplicativo por linha de comando `node main.js` na pasta instalada
 
 **Importante:** No linux, execute como root `sudo node main.js` se não você não conseguirá conectar os aparelhos móveis
 #### Preparação
@@ -109,6 +128,19 @@ Se você está executando o Windows 64bits, então tudo que você precisa fazer 
 - Procure músicas, adicione-as à playlist e divirta-se cantando junto com seus amigos!
 
 ** o programa funciona sem os controles remotos, mas é recomendado para uma melhor experiência
+
+## Troubleshooting
+**Problema:** O programa executa, mas quando uma música é enviada para tocar o programa fecha sozinho.
+**Causa:** Pode ser que o programa não tem acesso aos seus próprios arquivos.
+**Soluções:**
+- Tente mudar as permissões do diretórios de instalação, permitindo a todos leitura e execução.
+- Tente executar o programa como administrador.
+
+**Problema:** O programa não mostra o endereço IP no canto superior direito da tela, ou os aparelhos telefônicos não conseguem conectar-se com o servidor.
+**Causa:** O programa não consegue abrir a porta para escutar os aparelhos telefônicos.
+**Soluções:**
+- Tente adicionar YouSing à lista do firewall de programas seguros.
+- Tente executar o programa como administrador.
 
 ## Dependências
 - Node.js
