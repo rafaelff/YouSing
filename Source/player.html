@@ -43,7 +43,7 @@
 		}
 	</style>
 	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
-	<script src="jquery.js"></script>
+	<script src="assets/jquery.js"></script>
 	<script>if (window.module) module = window.module;</script>
   </head>
   <body style="margin: 0; scroll: none; background-color: #000; text-align: center;">
@@ -52,7 +52,7 @@
 	<div id="song_info"></div>
     <div id="player"></div>
     <script src="https://www.youtube.com/iframe_api"></script>
-	<script src="get_language.js"></script>
+	<script src="assets/get_language.js"></script>
     <script>
 		// show IP
 		var url_string = window.location.href;
@@ -82,7 +82,9 @@
 				'rel': 0,
 				'fs': 0,
 				'modestbranding': 1,
-				'showinfo': 0
+				'showinfo': 0,
+				'enablejsapi': 1,
+				'origin': location.host
 			  },
               events: {
                 onReady: onPlayerReady,
@@ -93,6 +95,7 @@
 
         // autoplay video
         function onPlayerReady(event) {
+			event.target.setVolume(100);
             event.target.playVideo();
         }
 

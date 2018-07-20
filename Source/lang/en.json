@@ -27,7 +27,11 @@
 	"MSG_PRIORITY": " as a priority request",
 	"MSG_REMOVE": "{user} removed the song {title} from the playlist.",
 	"MSG_COPYRIGHT": "Created by",
-	
-	"TITLE_PLAYLIST": "Current Playlist",
+	"MSG_PLAYLIST_NOCURRENT": "No songs are currently playing",
+	"MSG_PLAYLIST_NOQUEUED": "No songs are currently on the playlist",
+	"MSG_PLAYLIST_NOHISTORY": "No song was yet played on this device",
+
+	"TITLE_CURRENT": "Currently playing",
+	"TITLE_PLAYLIST": "Next songs",
 	"TITLE_HISTORY": "Song History"
 }

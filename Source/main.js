@@ -87,6 +87,7 @@ http.createServer(function (req, res) {
 							res.write('</p></div>');
 						}
 					}
+					res.write('<div id="loadmore" type="search" nextpage="'+result.nextPageToken+'"></div>');
 				}
 				res.end();
 			});
@@ -127,64 +128,103 @@ http.createServer(function (req, res) {
 			return res.end();
 			break;
 		case '/next_video':
-			query = "SELECT id, video_id, title FROM songs WHERE played != '1' ORDER BY played DESC, add_on ASC LIMIT 1";
-			db.get(query,function(err,row){
-				if(err) {
-					res.writeHead(500);
-					res.write(JSON.stringify(err));
-					return res.end();
-				} else if(!row) {
-					res.writeHead(500);
-					res.write('Song queue empty.');
-				} else {
-					var v_data = {
-						id: row.id,
-						video_id: row.video_id,
-						title: row.title
+			query = "SELECT id FROM songs WHERE played = '2'";
+			db.all(query,function(err,rows){
+				if(err) {console.log(err);}
+				rows.forEach(function(row) {
+					var q = `UPDATE songs SET played = '1' WHERE id = '${row.id}'`;
+					db.run(q);
+				});
+				query = "SELECT id, video_id, title FROM songs WHERE played = '0' ORDER BY played DESC, add_on ASC LIMIT 1";
+				db.get(query,function(err,row){
+					if(err) {
+						res.writeHead(500);
+						res.write(JSON.stringify(err));
+						return res.end();
+					} else if(!row) {
+						res.writeHead(500);
+						res.write('Song queue empty.');
+					} else {
+						var v_data = {
+							id: row.id,
+							video_id: row.video_id,
+							title: row.title
+						}
+						res.writeHead(200);
+						res.write(JSON.stringify(v_data));
+						var query = `UPDATE songs SET played = '2' WHERE id = '${row.id}'`;
+						db.run(query);
 					}
-					res.writeHead(200);
-					res.write(JSON.stringify(v_data));
-					var query = `UPDATE songs SET played = '1' WHERE id = '${row.id}'`;
-					db.run(query);
-				}
-				return res.end();
+					return res.end();
+				});
 			});
 			break;
 		case '/view_playlist':
-			var i = 1;
-			var result = '<p class="subtitle">{TITLE_PLAYLIST}</p>';
-			var query = "SELECT * FROM songs WHERE played != '1' ORDER BY played DESC, add_on ASC";
+			// The queries are nested because they are made assincronously,
+			// so if they are not nested the result is displayed before the queries return a result
+			var result = '<p class="subtitle">{TITLE_CURRENT}</p>';
+			var query = "SELECT * FROM songs WHERE played = '2' ORDER BY add_on DESC LIMIT 1";
 			db.all(query,function(err,rows){
 				if(err) {
 					console.log(query);
 					console.log(err);
 				}
-				rows.forEach(function(row) {
+				if(rows.length) {
+					var row = rows[0];
 					result += `<div class="result" vid="${row.video_id}" played="${row.played}" db_id="${row.id}">`;
 					result += `<img src="${row.thumbnail}" />`;
-					result += `<p class="duration">${i}</p>`;
+					if(row.duration) {result += `<p class="duration">${row.duration}</p>`;}
 					result += `<p class="title">${row.title}</p>`;
 					result += '</div>';
-					i++;
-				});
-				result += '<p class="subtitle">{TITLE_HISTORY}</p>';
-				var query = "SELECT * FROM songs WHERE played = '1' ORDER BY add_on DESC LIMIT 10";
-				if(q.query.page > 0) {query += " OFFSET " + (q.query.page * 10);}
+				} else {
+					result += '<p class="empty_message">{MSG_PLAYLIST_NOCURRENT}</p>';
+				}
+
+				var i = 1;
+				result += '<p class="subtitle">{TITLE_PLAYLIST}</p>';
+				var query = "SELECT * FROM songs WHERE played = '0' ORDER BY played DESC, add_on ASC";
 				db.all(query,function(err,rows){
 					if(err) {
 						console.log(query);
 						console.log(err);
 					}
-					rows.forEach(function(row) {
-						result += `<div class="result" vid="${row.video_id}" played="${row.played}" db_id="${row.id}">`;
-						result += `<img src="${row.thumbnail}" />`;
-						if(row.duration) {result += `<p class="duration">${row.duration}</p>`;}
-						result += `<p class="title">${row.title}</p>`;
-						result += '</div>';
+					if(rows.length) {
+						rows.forEach(function(row) {
+							result += `<div class="result" vid="${row.video_id}" played="${row.played}" db_id="${row.id}">`;
+							result += `<img src="${row.thumbnail}" />`;
+							result += `<p class="duration">${i}</p>`;
+							result += `<p class="title">${row.title}</p>`;
+							result += '</div>';
+							i++;
+						});
+					} else {
+						result += '<p class="empty_message">{MSG_PLAYLIST_NOQUEUED}</p>';
+					}
+
+					result += '<p class="subtitle">{TITLE_HISTORY}</p>';
+					var query = "SELECT * FROM songs WHERE played = '1' ORDER BY add_on DESC LIMIT 10";
+					if(q.query.page > 0) {query += " OFFSET " + (q.query.page * 10);}
+					db.all(query,function(err,rows){
+						if(err) {
+							console.log(query);
+							console.log(err);
+						}
+						if(rows.length) {
+							rows.forEach(function(row) {
+								result += `<div class="result" vid="${row.video_id}" played="${row.played}" db_id="${row.id}">`;
+								result += `<img src="${row.thumbnail}" />`;
+								if(row.duration) {result += `<p class="duration">${row.duration}</p>`;}
+								result += `<p class="title">${row.title}</p>`;
+								result += '</div>';
+							});
+						} else {
+							result += '<p class="empty_message">{MSG_PLAYLIST_NOHISTORY}</p>';
+						}
+
+						res.writeHead(200);
+						res.write(result);
+						res.end();
 					});
-					res.writeHead(200);
-					res.write(result);
-					res.end();
 				});
 			});
 			break;
@@ -218,7 +258,10 @@ http.createServer(function (req, res) {
 				file = fs.readFileSync('lang/' + files[i],{encoding: 'UTF-8'});
 				var val = files[i].split('.')[0];
 				var lan = JSON.parse(file)['LANGUAGE'];
-				result += `<input type="radio" name="lang" value="${val}" /> ${lan}<br/>`;
+				result += `<div class="form-check">
+				  <input class="form-check-input" type="radio" name="lang" id="lang${i}" value="${val}">
+				  <label class="form-check-label" for="lang${i}">${lan}</label>
+				</div>`;
 			  }
 			  res.writeHead(200, {'Content-Type': 'text/html'});
 			  res.write(result);
