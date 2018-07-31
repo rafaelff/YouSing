@@ -24,6 +24,7 @@
 	"MSG_PAUSE": "{user} paused the song.",
 	"MSG_SKIP": "{user} skipped the song.",
 	"MSG_ADD": "{user} added {title} to the playlist{priority}.",
+	"MSG_ADD_EXISTS": "This song is already on the playlist.",
 	"MSG_PRIORITY": " as a priority request",
 	"MSG_REMOVE": "{user} removed the song {title} from the playlist.",
 	"MSG_COPYRIGHT": "Created by",

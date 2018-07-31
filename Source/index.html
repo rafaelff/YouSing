@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>YouSing</title>
+	<link rel="icon" href="ys_icon.ico">
 	<style>
 		html, body {
 			font-family: arial;
@@ -127,7 +128,7 @@
 		socket.addEventListener('message', function(event) {
 			msg = JSON.parse(event.data);
 			console.log(msg);
-			if(msg.type == 'add_song') {
+			if(msg.type == 'add_song' || msg.type == 'play' || msg.type == 'skip') {
 				window.location="/player.html?ip=" + ip;
 			}
 		});

@@ -94,48 +94,52 @@ http.createServer(function (req, res) {
 			break;
 		case '/add_song':
 			var song_data = JSON.parse(q.query.data);
-			var cols = '';
-			var values = '';
-			var priority = '';
-			for(field in song_data) {
-				cols += `, ${field}`;
-				values += `, '${song_data[field].replace(/\'/g,'&#39;')}'`;
-			}
-			// Add song to beginning of playlist if the "priority" argument was passed
-			if(q.query.priority) {
-				cols += ", played";
-				values += ", '2'";
-			}
-			cols = cols.substr(2);
-			values = values.substr(2);
-			var query = `INSERT INTO songs (${cols}) VALUES (${values})`;
-			if(db.run(query)) {
-				msg = {
-					type: 'add_song',
-					message: 'MSG_ADD',
-					user: q.query.user,
-					title: song_data.title,
-					priority: ''
-				};
-				if(q.query.priority) {
-					msg.priority = '`${lang.MSG_PRIORITY}`';
+			var query = `SELECT COUNT(*) AS num FROM songs WHERE video_id = '${song_data["video_id"]}' AND played = '0'`;
+			db.get(query,function(err,row) {
+				if(row.num) {
+					res.writeHead(200);
+					res.write('MSG_ADD_EXISTS');
+					return res.end();
+				} else {
+					var cols = '';
+					var values = '';
+					var priority = '';
+					for(field in song_data) {
+						cols += `, ${field}`;
+						values += `, '${song_data[field].replace(/\'/g,'&#39;')}'`;
+					}
+					cols = cols.substr(2);
+					values = values.substr(2);
+					var query = `INSERT INTO songs (${cols}) VALUES (${values})`;
+					if(db.run(query)) {
+						msg = {
+							type: 'add_song',
+							message: 'MSG_ADD',
+							user: q.query.user,
+							title: song_data.title,
+							priority: ''
+						};
+						if(q.query.priority) {
+							msg.priority = '`${lang.MSG_PRIORITY}`';
+						}
+						wss.broadcast(JSON.stringify(msg));
+						res.writeHead(200);
+					} else {
+						res.writeHead(500);
+					}
+					return res.end();
 				}
-				wss.broadcast(JSON.stringify(msg));
-				res.writeHead(200);
-			} else {
-				res.writeHead(500);
-			}
-			return res.end();
+			});
 			break;
 		case '/next_video':
-			query = "SELECT id FROM songs WHERE played = '2'";
+			query = "SELECT id FROM songs WHERE played = '2' ORDER BY priority DESC, add_on ASC";
 			db.all(query,function(err,rows){
 				if(err) {console.log(err);}
 				rows.forEach(function(row) {
 					var q = `UPDATE songs SET played = '1' WHERE id = '${row.id}'`;
 					db.run(q);
 				});
-				query = "SELECT id, video_id, title FROM songs WHERE played = '0' ORDER BY played DESC, add_on ASC LIMIT 1";
+				query = "SELECT id, video_id, title FROM songs WHERE played = '0' ORDER BY priority DESC, add_on ASC LIMIT 1";
 				db.get(query,function(err,row){
 					if(err) {
 						res.writeHead(500);
@@ -152,7 +156,7 @@ http.createServer(function (req, res) {
 						}
 						res.writeHead(200);
 						res.write(JSON.stringify(v_data));
-						var query = `UPDATE songs SET played = '2' WHERE id = '${row.id}'`;
+						var query = `UPDATE songs SET played = '2', played_on = datetime('now', 'localtime') WHERE id = '${row.id}'`;
 						db.run(query);
 					}
 					return res.end();
@@ -162,6 +166,7 @@ http.createServer(function (req, res) {
 		case '/view_playlist':
 			// The queries are nested because they are made assincronously,
 			// so if they are not nested the result is displayed before the queries return a result
+			// Played field -> 0: in the playlist, 1: played, 2: playing
 			var result = '<p class="subtitle">{TITLE_CURRENT}</p>';
 			var query = "SELECT * FROM songs WHERE played = '2' ORDER BY add_on DESC LIMIT 1";
 			db.all(query,function(err,rows){
@@ -182,7 +187,7 @@ http.createServer(function (req, res) {
 
 				var i = 1;
 				result += '<p class="subtitle">{TITLE_PLAYLIST}</p>';
-				var query = "SELECT * FROM songs WHERE played = '0' ORDER BY played DESC, add_on ASC";
+				var query = "SELECT * FROM songs WHERE played = '0' ORDER BY priority DESC, add_on ASC";
 				db.all(query,function(err,rows){
 					if(err) {
 						console.log(query);
@@ -202,7 +207,7 @@ http.createServer(function (req, res) {
 					}
 
 					result += '<p class="subtitle">{TITLE_HISTORY}</p>';
-					var query = "SELECT * FROM songs WHERE played = '1' ORDER BY add_on DESC LIMIT 10";
+					var query = "SELECT * FROM songs WHERE played = '1' ORDER BY played_on DESC LIMIT 10";
 					if(q.query.page > 0) {query += " OFFSET " + (q.query.page * 10);}
 					db.all(query,function(err,rows){
 						if(err) {
