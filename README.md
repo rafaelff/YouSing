@@ -67,6 +67,13 @@ Unfortunatelly, no installer is provided yet for 32bits version of Windows due t
 - Try adding YouSing in the firewall's list of allowed programs.
 - Try executing the program as administrator.
 
+## Changelog
+##### v1.1.0
+- Added `bootstrap` buttons and forms to improve the appearance
+- Added `fontawesome` icons for the controller
+- Added a check to prevent duplicate songs to be added to the playlist
+- Minor improvements on the layout, database structure and song management
+
 ## Dependencies
 - Node.js
   - opener
@@ -80,9 +87,9 @@ Unfortunatelly, no installer is provided yet for 32bits version of Windows due t
 - [ ] Find a way to avoid showing unavailable videos on the search results
 - [ ] Pack the application for easy to install
 - [ ] Improve the quality of the icon
-- [ ] Change the menu icon
-- [ ] Add a verification when sending to the list to not allow sending songs that are already on the list
-- [ ] Add Bootstrap or jQuery UI to improve the design and user experience
+- [x] Change the menu icon
+- [x] Add a verification when sending to the list to not allow sending songs that are already on the list
+- [x] Add Bootstrap or jQuery UI to improve the design and user experience
 - [ ] Add a "personal list" feature, where the users can rate the song they just sang and later check the "better" songs for them to sing
 - [ ] Add a "mostly played" list, with suggestions of tracks based on what people sang on that device
 - [ ] Fix the files permission issue
@@ -152,6 +159,13 @@ Infelizmente, ainda não está disponível o instalador para a versão 32bits do
 **Soluções:**
 - Tente adicionar YouSing à lista do firewall de programas seguros.
 - Tente executar o programa como administrador.
+
+## Changelog
+##### v1.1.0
+- Adicionado `bootstrap` nos botões e formulários para melhorar a aparência
+- Adicionado ícones `fontawesome` no controle
+- Adicionado uma verificação para prevenir o envio à playlist de músicas duplicadas
+- Pequenas melhorias no layout, estrutura do banco de dados e manipulação das músicas
 
 ## Dependências
 - Node.js
