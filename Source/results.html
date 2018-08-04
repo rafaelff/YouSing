@@ -344,18 +344,18 @@
 		});
 		$('#search_bt').attr('value',lang.BT_SEARCH);
 		
-		$(window).scroll(function() {
-			if($(window).scrollTop() == $(document).height() - $(window).height() && $('#loadmore').length) {
+		$(document.body).on('touchmove', function() {
+			if($(this).scrollTop() == $(this).height() - $(this).height() && $('#loadmore').length) {
 				var data = $('#loadmore').attr('lastsearch');
 				var token = $('#loadmore').attr('nextpage');
 				$.get("search?data="+data+"&token="+token, function(res) {
-					$('#loadmore').remove();
 					$('#results').append(res);
 					$('#results .result').click(function() {
 						$('#send_song').attr('vid',$(this).attr('vid')).parent().show();
 						$('#send_song .song_title').html($(this).find('.title').html());
 					});
 				});
+				$('#loadmore').remove();
 			}
 		});
 
