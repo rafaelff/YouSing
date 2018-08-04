@@ -2,11 +2,16 @@
 <html>
   <head>
     <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title>YouSing</title>
+	<link rel="icon" href="ys_icon.ico">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
 	<style>
 		body {
 			font-family: arial;
+			padding-bottom: 1.5cm;
+			padding-top: 4rem;
 		}
 			
 		.overlay {
@@ -73,6 +78,8 @@
 		.subtitle {
 			font-weight: bold;
 			border-bottom: 1px solid;
+			padding-left: .5em;
+			margin-top: 1rem;
 		}
 		
 		.duration {
@@ -83,27 +90,16 @@
 			font-style: italic;
 		}
 		
-		#search_bt {
-			float:right;
-			font-size: 12pt;
-			padding: .2rem .4rem;
-		}
-		
-		#search_txt {
-			width: 100%;
-			font-size: 12pt;
-			padding: .2rem;
-		}
-		
 		#send_song, #loading {
 			position: fixed;
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
 			padding: .5rem 1rem;
-			background-color: #DDD;
+			background-color: #eee;
 			width: 16em;
 			z-index:20;
+			border-radius: .5rem;
 		}
 		
 		#loading {
@@ -113,7 +109,7 @@
 			display: none;
 		}
 		
-		#send_song input {
+		#send_song button {
 			width: 100%;
 			margin: .5rem 0;
 			font-size: 12pt;
@@ -126,7 +122,7 @@
 		
 		#message {
 			display: none;
-			width: calc(100% - 1rem);
+			width: 100%;
 			border-radius: 0 0 10px 10px;
 			background-color: rgba(220, 220, 0, 0.7);
 			position: fixed;
@@ -134,6 +130,15 @@
 			left: 0;
 			padding: .5rem;
 			font-size: 12pt;
+			z-index: 100;
+		}
+		
+		.search {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			background-color: inherit;
 		}
 		
 		#controller {
@@ -147,33 +152,17 @@
 		
 		.ud_arrow {
 			height: 1cm;
+			line-height: 1cm;
+			font-size: 1.5cm;
 			width: 100%;
-			background-image: url('img/arr_down.png');
-			background-size: auto 50%;
-			background-repeat: no-repeat;
-			background-position: center;
+			text-align: center;
+			vertical-align: middle;
 		}
 		
 		.ud_arrow:hover {
 			cursor: pointer;
 			background-color: rgba(140, 140, 140, 1);
 			border-radius: 10px 10px 0 0;
-		}
-		
-		.play {
-			background-image: url('img/play.png');
-		}
-
-		.pause {
-			background-image: url('img/pause.png');
-		}
-
-		.skip {
-			background-image: url('img/skip.png');
-		}
-
-		.playlist {
-			background-image: url('img/playlist.png');
 		}
 		
 		.buttons {
@@ -184,31 +173,35 @@
 			float: left;
 			width: 25%;
 			height: 2cm;
-			vertical-align: middle;
+			line-height: 2cm;
+			font-size: 1.5cm;
 			text-align: center;
-			background-size: auto 50%;
-			background-repeat: no-repeat;
-			background-position: center;
+			mask-size: contain;
 		}
 		
 		.button:hover {
 			cursor: pointer;
 			background-color: rgba(140, 140, 140, 1);
 		}
-	</style>
+		
+		.empty_message {
+			padding-left: 1em;
+			font-style: italic;
+		}
+		</style>
 	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
-	<script src="jquery.js"></script>
+	<script src="assets/jquery.js" crossorigin="anonymous"></script>
 	<script>if (window.module) module = window.module;</script>
   </head>
   <body onload="checkCookie()">
 	<div class="overlay">
 		<div id="send_song">
 			<p class="song_title" style="font-weight:bold; text-align:justify;"></p>
-			<input type="button" value="Preview" />
-			<input type="button" class="remove" value="Remove from queue" />
-			<input type="button" value="Send to queue" />
-			<input type="button" value="Priority send" />
-			<input type="button" value="Cancel" />
+			<button type="button" class="btn btn-info"><i class="fas fa-film"></i> <span text="MENU_PREVIEW">Visualizar</span></button>
+			<button type="button" class="btn btn-danger remove"><i class="far fa-trash-alt"></i> <span text="MENU_REMOVE">Remove from queue</span></button>
+			<button type="button" class="btn btn-success"><i class="fas fa-sign-in-alt fa-rotate-270"></i> <span text="MENU_SEND">Send to queue</span></button>
+			<button type="button" class="btn btn-warning"><i class="fas fa-fast-forward fa-rotate-270"></i> <span text="MENU_PRIORITY">Priority send</span></button>
+			<button type="button" class="btn btn-secondary"><span text="MENU_CANCEL">Cancel</span></button>
 		</div>
 		<div id="preview"><div id="player"></div><br/><a href="javascript:close();">X Fechar</a></div>
 		<div id="loading">
@@ -216,24 +209,27 @@
 		</div>
 	</div>
 	<div id="message"></div>
-	<form style="padding: 5px 0 15px;">
-		<input type="submit" value="Search" id="search_bt" />
-		<div style="overflow: hidden; padding-right: 1rem;">
-			<input type="text" name="search" id="search_txt" />
+	<form class="search">
+		<div class="input-group input-group-lg m-2">
+			<input type="text" name="search" class="form-control" id="search_txt" />
+			<div class="input-group-append mr-2">
+				<button type="submit" class="btn btn-primary mr-2" text="BT_SEARCH">Search</button>
+			</div>
 		</div>
 	</form>
 	<div id="results"></div>
 	<div id="controller">
-		<div class="ud_arrow"></div>
+		<div class="ud_arrow fas fa-caret-down"></div>
 		<div class="buttons">
-			<div class="button play"></div>
-			<div class="button pause"></div>
-			<div class="button skip"></div>
-			<div class="button playlist"></div>
+			<div class="button fas fa-play play"></div>
+			<div class="button fas fa-pause pause"></div>
+			<div class="button fas fa-step-forward skip"></div>
+			<div class="button fas fa-list-ol list"></div>
 		</div>
 	</div>
 	<script src="https://www.youtube.com/iframe_api"></script>
-	<script src="get_language.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="assets/get_language.js"></script>
 	<script>
 		var user_name;
 
@@ -243,8 +239,8 @@
 			if(url.searchParams.get("username")) {
 				user_name = url.searchParams.get("username").replace(/[\"\']/g,'');
 			}
-			if (user_name != "" && user != null) {
-				setCookie("username", user, 365);
+			if (user_name != "" && user_name != null) {
+				setCookie("username", user_name, 1);
 			}
 		}
 	
@@ -259,7 +255,9 @@
 				'rel': 0,
 				'fs': 0,
 				'modestbranding': 1,
-				'showinfo': 0
+				'showinfo': 0,
+				'enablejsapi': 1,
+				'origin': location.host
 			  },
               events: {
                 onReady: onPlayerReady
@@ -283,11 +281,7 @@
 		// give actions to bottom controller buttons
 		$('.ud_arrow').click(function(){
 			$('.buttons').slideToggle();
-			if($(this).attr('style')) {
-				$(this).attr('style',null);
-			} else {
-				$(this).attr('style',"background-image: url('img/arr_up.png');");
-			}
+			$(this).toggleClass('fa-caret-down fa-caret-up');
 		});
 		$('.play').click(function(){
 			msg = {
@@ -317,7 +311,7 @@
 				socket.send(JSON.stringify(msg));
 			}
 		});
-		$('.playlist').click(show_playlist);
+		$('.list').click(show_playlist);
 		
 		// show the current playlist and song history
 		function show_playlist(page) {
@@ -345,19 +339,35 @@
 					$('#send_song').attr('vid',$(this).attr('vid')).parent().show();
 					$('#send_song .song_title').html($(this).find('.title').html());
 				});
+				$(window).scrollTop(0);
 			});
 		});
 		$('#search_bt').attr('value',lang.BT_SEARCH);
+		
+		$(document.body).on('touchmove', function() {
+			if($(this).scrollTop() == $(this).height() - $(this).height() && $('#loadmore').length) {
+				var data = $('#loadmore').attr('lastsearch');
+				var token = $('#loadmore').attr('nextpage');
+				$.get("search?data="+data+"&token="+token, function(res) {
+					$('#results').append(res);
+					$('#results .result').click(function() {
+						$('#send_song').attr('vid',$(this).attr('vid')).parent().show();
+						$('#send_song .song_title').html($(this).find('.title').html());
+					});
+				});
+				$('#loadmore').remove();
+			}
+		});
 
 		// define the behavior of the buttons from song management
-		$('#send_song input').eq(0).click(function() {
+		$('#send_song button').eq(0).click(function() {
 			var vid = $(this).parent().attr('vid');
 			player.loadVideoById(vid);
 			$('#preview').show();
 			$('#send_song').hide();
-		}).attr('value',lang.MENU_PREVIEW);
+		});
 		
-		$('#send_song input').eq(1).click(function() {
+		$('#send_song button').eq(1).click(function() {
 			var vid = $(this).parent().attr('vid');
 			var songdata = {
 				'db_id': $('.result[vid="'+vid+'"]').attr('db_id'),
@@ -373,24 +383,24 @@
 			});
 			$('#loading').show();
 			$('#send_song').hide();
-		}).attr('value',lang.MENU_REMOVE);	
+		});	
 		
-		$('#send_song input').eq(2).click(function() {
+		$('#send_song button').eq(2).click(function() {
 			var vid = $(this).parent().attr('vid');
 			send_song($('.result[vid="'+vid+'"]'));
-		}).attr('value',lang.MENU_SEND);
+		});
 		
-		$('#send_song input').eq(3).click(function() {
+		$('#send_song button').eq(3).click(function() {
 			if(confirm(lang.CONFIRM_PRIORITY)) {
 				var vid = $(this).parent().attr('vid');
 				send_song($('.result[vid="'+vid+'"]'),true);
 			}
-		}).attr('value',lang.MENU_PRIORITY);
+		});
 		
-		$('#send_song input').eq(4).click(function() {
+		$('#send_song button').eq(4).click(function() {
 			$('.overlay').hide();
 			$('#send_song .remove').hide();
-		}).attr('value',lang.MENU_CANCEL);
+		});
 
 		// send song to playlist. if second parameter is true, send it to beginning of playlist
 		function send_song(row, priority) {
@@ -399,9 +409,9 @@
 				'video_id': $(row).attr('vid'),
 				'thumbnail': $(row).find('img').attr('src')
 			}
+			if(priority) songdata['priority'] = '1';
 			var data = JSON.stringify(songdata);
 			var req = 'add_song?data=' + data + '&user=' + encodeURIComponent(user_name);
-			if(priority) req += '&priority=true';
 			$.get(req, function(res) {
 				$('.overlay, #loading').hide();
 				$('#send_song .remove').hide();

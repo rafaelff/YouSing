@@ -24,10 +24,15 @@
 	"MSG_PAUSE": "{user} pausou a música.",
 	"MSG_SKIP": "{user} pulou a música.",
 	"MSG_ADD": "{user} adicionou {title} à playlist{priority}.",
+	"MSG_ADD_EXISTS": "Esta música já está na playlist.",
 	"MSG_PRIORITY": " como prioridade",
 	"MSG_REMOVE": "{user} removeu a música {title} da playlist.",
 	"MSG_COPYRIGHT": "Criado por",
-	
-	"TITLE_PLAYLIST": "Playlist atual",
+	"MSG_PLAYLIST_NOCURRENT": "Nenhuma música em execução",
+	"MSG_PLAYLIST_NOQUEUED": "Nenhuma música aguardando execução",
+	"MSG_PLAYLIST_NOHISTORY": "Nenhuma música executada neste aparelho",
+
+	"TITLE_CURRENT": "Em execução",
+	"TITLE_PLAYLIST": "Próximas músicas",
 	"TITLE_HISTORY": "Histórico de músicas"
 }

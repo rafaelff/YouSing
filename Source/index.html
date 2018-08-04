@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>YouSing</title>
+	<link rel="icon" href="ys_icon.ico">
 	<style>
 		html, body {
 			font-family: arial;
@@ -84,7 +85,7 @@
 		}
 	</style>
 	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
-	<script src="jquery.js"></script>
+	<script src="assets/jquery.js"></script>
 	<script>if (window.module) module = window.module;</script>
   </head>
   <body>
@@ -101,7 +102,7 @@
 		</td>
 	</tr></table>
 	<p id="copyright"><a text="MSG_COPYRIGHT">Created by</a><br/>Rafael F. Felix<br/><a href="https://www.linkedin.com/in/rafaelffelix/" target="_blank"><img src="img/linkedin.png" />rafaelffelix</a></p>
-	<script src="get_language.js"></script>
+	<script src="assets/get_language.js"></script>
 	<script>
 		// Show IP
 		var url_string = window.location.href;
@@ -127,7 +128,7 @@
 		socket.addEventListener('message', function(event) {
 			msg = JSON.parse(event.data);
 			console.log(msg);
-			if(msg.type == 'add_song') {
+			if(msg.type == 'add_song' || msg.type == 'play' || msg.type == 'skip') {
 				window.location="/player.html?ip=" + ip;
 			}
 		});
