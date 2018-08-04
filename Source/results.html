@@ -96,9 +96,10 @@
 			left: 50%;
 			transform: translate(-50%, -50%);
 			padding: .5rem 1rem;
-			background-color: #DDD;
+			background-color: #eee;
 			width: 16em;
 			z-index:20;
+			border-radius: .5rem;
 		}
 		
 		#loading {
@@ -108,7 +109,7 @@
 			display: none;
 		}
 		
-		#send_song input {
+		#send_song button {
 			width: 100%;
 			margin: .5rem 0;
 			font-size: 12pt;
@@ -196,11 +197,11 @@
 	<div class="overlay">
 		<div id="send_song">
 			<p class="song_title" style="font-weight:bold; text-align:justify;"></p>
-			<input type="button" value="Preview" />
-			<input type="button" class="remove" value="Remove from queue" />
-			<input type="button" value="Send to queue" />
-			<input type="button" value="Priority send" />
-			<input type="button" value="Cancel" />
+			<button type="button" class="btn btn-info"><i class="fas fa-film"></i> <span text="MENU_PREVIEW">Visualizar</span></button>
+			<button type="button" class="btn btn-danger remove"><i class="far fa-trash-alt"></i> <span text="MENU_REMOVE">Remove from queue</span></button>
+			<button type="button" class="btn btn-success"><i class="fas fa-sign-in-alt fa-rotate-270"></i> <span text="MENU_SEND">Send to queue</span></button>
+			<button type="button" class="btn btn-warning"><i class="fas fa-fast-forward fa-rotate-270"></i> <span text="MENU_PRIORITY">Priority send</span></button>
+			<button type="button" class="btn btn-secondary"><span text="MENU_CANCEL">Cancel</span></button>
 		</div>
 		<div id="preview"><div id="player"></div><br/><a href="javascript:close();">X Fechar</a></div>
 		<div id="loading">
@@ -338,19 +339,35 @@
 					$('#send_song').attr('vid',$(this).attr('vid')).parent().show();
 					$('#send_song .song_title').html($(this).find('.title').html());
 				});
+				$(window).scrollTop(0);
 			});
 		});
 		$('#search_bt').attr('value',lang.BT_SEARCH);
+		
+		$(window).scroll(function() {
+			if($(window).scrollTop() == $(document).height() - $(window).height() && $('#loadmore').length) {
+				var data = $('#loadmore').attr('lastsearch');
+				var token = $('#loadmore').attr('nextpage');
+				$.get("search?data="+data+"&token="+token, function(res) {
+					$('#loadmore').remove();
+					$('#results').append(res);
+					$('#results .result').click(function() {
+						$('#send_song').attr('vid',$(this).attr('vid')).parent().show();
+						$('#send_song .song_title').html($(this).find('.title').html());
+					});
+				});
+			}
+		});
 
 		// define the behavior of the buttons from song management
-		$('#send_song input').eq(0).click(function() {
+		$('#send_song button').eq(0).click(function() {
 			var vid = $(this).parent().attr('vid');
 			player.loadVideoById(vid);
 			$('#preview').show();
 			$('#send_song').hide();
-		}).attr('value',lang.MENU_PREVIEW);
+		});
 		
-		$('#send_song input').eq(1).click(function() {
+		$('#send_song button').eq(1).click(function() {
 			var vid = $(this).parent().attr('vid');
 			var songdata = {
 				'db_id': $('.result[vid="'+vid+'"]').attr('db_id'),
@@ -366,24 +383,24 @@
 			});
 			$('#loading').show();
 			$('#send_song').hide();
-		}).attr('value',lang.MENU_REMOVE);	
+		});	
 		
-		$('#send_song input').eq(2).click(function() {
+		$('#send_song button').eq(2).click(function() {
 			var vid = $(this).parent().attr('vid');
 			send_song($('.result[vid="'+vid+'"]'));
-		}).attr('value',lang.MENU_SEND);
+		});
 		
-		$('#send_song input').eq(3).click(function() {
+		$('#send_song button').eq(3).click(function() {
 			if(confirm(lang.CONFIRM_PRIORITY)) {
 				var vid = $(this).parent().attr('vid');
 				send_song($('.result[vid="'+vid+'"]'),true);
 			}
-		}).attr('value',lang.MENU_PRIORITY);
+		});
 		
-		$('#send_song input').eq(4).click(function() {
+		$('#send_song button').eq(4).click(function() {
 			$('.overlay').hide();
 			$('#send_song .remove').hide();
-		}).attr('value',lang.MENU_CANCEL);
+		});
 
 		// send song to playlist. if second parameter is true, send it to beginning of playlist
 		function send_song(row, priority) {

@@ -67,10 +67,12 @@ http.createServer(function (req, res) {
 		case '/search':
 			// search for youtube for songs with "karaoke" on the title
 			var youTube = new YouTube();
+			var options = {type: 'video', videoEmbeddable: 'true'};
+			if(q.query.token) {options.pageToken = q.query.token;}
 			youTube.setKey('AIzaSyBWWNdb8IiG7qUCFdMF-97jmXR472gLMdQ');
 			youTube.addParam('type','video');
 			youTube.addParam('videoEmbeddable','true');
-			youTube.search(q.query.data, 12, function(error, result) {
+			youTube.search(q.query.data, 12, options, function(error, result) {
 				if (error) {
 					res.writeHead(200, {'Content-Type': 'text/plain'});
 					res.write(error);
@@ -87,7 +89,7 @@ http.createServer(function (req, res) {
 							res.write('</p></div>');
 						}
 					}
-					res.write('<div id="loadmore" type="search" nextpage="'+result.nextPageToken+'"></div>');
+					res.write('<div id="loadmore" lastsearch="'+q.query.data+'" nextpage="'+result.nextPageToken+'"></div>');
 				}
 				res.end();
 			});

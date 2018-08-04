@@ -72,6 +72,8 @@ Unfortunatelly, no installer is provided yet for 32bits version of Windows due t
 - Added `bootstrap` buttons and forms to improve the appearance
 - Added `fontawesome` icons for the controller
 - Added a check to prevent duplicate songs to be added to the playlist
+- The search page now loads more results when scrolled to the bottom
+- Excluded the search results wich are unavailable
 - Minor improvements on the layout, database structure and song management
 
 ## Dependencies
@@ -84,7 +86,7 @@ Unfortunatelly, no installer is provided yet for 32bits version of Windows due t
 
 ## To-do list
 - [ ] Make an English help file and make the link point to the correct language file depending on the host settings
-- [ ] Find a way to avoid showing unavailable videos on the search results
+- [x] Find a way to avoid showing unavailable videos on the search results
 - [ ] Pack the application for easy to install
 - [ ] Improve the quality of the icon
 - [x] Change the menu icon
@@ -165,6 +167,8 @@ Infelizmente, ainda não está disponível o instalador para a versão 32bits do
 - Adicionado `bootstrap` nos botões e formulários para melhorar a aparência
 - Adicionado ícones `fontawesome` no controle
 - Adicionado uma verificação para prevenir o envio à playlist de músicas duplicadas
+- A página de busca agora carrega mais resultados quando atinge o final da página
+- Removidos os resulados indisponíveis
 - Pequenas melhorias no layout, estrutura do banco de dados e manipulação das músicas
 
 ## Dependências
