@@ -170,7 +170,7 @@ Infelizmente, ainda não está disponível o instalador para a versão 32bits do
 - Adicionado ícones `fontawesome` no controle
 - Adicionado uma verificação para prevenir o envio à playlist de músicas duplicadas
 - A página de busca agora carrega mais resultados quando atinge o final da página
-- Removidos os resulados indisponíveis
+- Removidos os resultados indisponíveis
 - Pequenas melhorias no layout, estrutura do banco de dados e manipulação das músicas
 
 ## Dependências
