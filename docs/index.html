@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>YouSing | Karaoke program for parties</title>
+<meta name="generator" content="Jekyll v3.7.3" />
+<meta property="og:title" content="YouSing" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Karaoke program for parties" />
+<meta property="og:description" content="Karaoke program for parties" />
+<link rel="canonical" href="https://rafaelff.github.io/YouSing/" />
+<meta property="og:url" content="https://rafaelff.github.io/YouSing/" />
+<meta property="og:site_name" content="YouSing" />
+<script type="application/ld+json">
+{"name":"YouSing","description":"Karaoke program for parties","@type":"WebSite","url":"https://rafaelff.github.io/YouSing/","headline":"YouSing","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/YouSing/assets/css/style.css?v=5a3cf25971fe447c789549b88360ebc6f5515e9d">
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><a href="https://rafaelff.github.io/YouSing/">YouSing</a></h1>
+        
+        
+
+        <p>Karaoke program for parties</p>
+
+        
+        <p class="view"><a href="https://github.com/rafaelff/YouSing">View the Project on GitHub <small>rafaelff/YouSing</small></a></p>
+        
+
+        
+
+        
+        <ul>
+          <li><a href="https://github.com/rafaelff/YouSing/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/rafaelff/YouSing/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/rafaelff/YouSing">View On <strong>GitHub</strong></a></li>
+        </ul>
+        
+      </header>
+      <section>
+
+      <p><img src="https://raw.githubusercontent.com/rafaelff/YouSing/master/Source/img/ys_logo.png" alt="YouSing" /></p>
+
+<ul>
+  <li><a href="#english">English</a></li>
+  <li><a href="#português">Português</a></li>
+</ul>
+
+<h1 id="english">English</h1>
+
+<h2 id="about">About</h2>
+<p>YouSing is a karaoke program for parties built on <code class="highlighter-rouge">Node.js</code>. It searches YouTube for karaoke version of songs and plays it on the server’s screen. Multiple users can connect to it with their phones without need to install anything on the mobile device. The songs added are put in a list and played in order.</p>
+
+<h2 id="features">Features</h2>
+<ul>
+  <li>Huge and constantly growing catalog of songs: Plays any song available as a karaoke version on YouTube</li>
+  <li>Control the songs flow with your mobile device
+    <ul>
+      <li>Search and add songs to the queue</li>
+      <li>Play/pause execution</li>
+      <li>Skip to the next song in line</li>
+      <li>View what’s next for playing and what have been played before</li>
+    </ul>
+  </li>
+  <li>Multiple simultaneous users</li>
+  <li>No need to install anything on client devices: Just access the server with your mobile browser</li>
+  <li>Localization: support for multiple languages</li>
+</ul>
+
+<h2 id="screenshots">Screenshots</h2>
+<p><img src="https://github.com/rafaelff/YouSing/raw/master/Screenshots/01%20main%20screen.png" alt="Main screen" /> | <img src="https://github.com/rafaelff/YouSing/raw/master/Screenshots/02%20search%20on%20main.png" alt="Song search on main screen" />
+– | –
+<img src="https://github.com/rafaelff/YouSing/raw/master/Screenshots/03%20song%20playing.png" alt="Song playing" /> |
+<img src="https://github.com/rafaelff/YouSing/raw/master/Screenshots/04%20login%20on%20mobile.png" alt="Login page on mobile phone" /> | <img src="https://github.com/rafaelff/YouSing/raw/master/Screenshots/05%20search%20on%20mobile.png" alt="Search page on mobile phone" /> 
+<img src="https://github.com/rafaelff/YouSing/raw/master/Screenshots/06%20send%20song%20on%20mobile.png" alt="Sending song to play" /> |</p>
+
+<h2 id="how-to-use">How to use</h2>
+<h4 id="installation">Installation</h4>
+<h5 id="windows-64-bits">Windows 64 bits</h5>
+<p>If you’re running Windows 64bits, then all you need to do is download <a href="https://github.com/rafaelff/YouSing/raw/master/YouSing-x64.exe">this installer</a> and run it!</p>
+
+<p><strong>Important:</strong> Your antivirus may prevent the software from installing, since it’s not signed, but there is nothing suspicious on the code (you can check the source here, on github). In this case, you may need to disable it temporarily and/or add the app on the trusted list.
+https://www.virustotal.com/#/url/378891d7549aaa7ee69347c42b52e60fa493237e5388e9a878ddcacfa37cd1f5/detection</p>
+
+<p>Unfortunatelly, no installer is provided yet for 32bits version of Windows due to some issues with the packager. If that’s your case, please read the next session on how to run it by source.</p>
+<h5 id="running-from-source">Running from source</h5>
+<ul>
+  <li>Install Node.js if you don’t have it yet</li>
+  <li>Extract the files</li>
+  <li>Run by command line <code class="highlighter-rouge">npm install</code> on the folder where the files were extracted</li>
+  <li>Launch the app by command line <code class="highlighter-rouge">node main.js</code> on the folder installed</li>
+</ul>
+
+<p><strong>Important:</strong> On linux, make sure to run as root <code class="highlighter-rouge">sudo node main.js</code> or else you wont be able to connect the mobile devices</p>
+<h4 id="preparation">Preparation</h4>
+<ul>
+  <li>Start the server on a computer (a Raspberry Pi with Raspbian is suggested for portability)</li>
+  <li>Connect the computer in a big screen <code class="highlighter-rouge">optional</code></li>
+  <li>Make sure the computer is connected to the internet</li>
+  <li>Set up an amplifier with a couple of microphones <code class="highlighter-rouge">optional</code></li>
+  <li>Connect the sound from the computer on the amplifier also <code class="highlighter-rouge">optional</code></li>
+  <li>Connect the singers mobile phone’s to the same local network as the server **</li>
+  <li>Access on the mobile’s browser the IP address provided on the screen of the server **</li>
+  <li>Search for songs, add them to the playlist and enjoy singing together with your friends!</li>
+</ul>
+
+<p>** the program works without client controllers, but it’s recommended for a better experience</p>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p><strong>Problem:</strong> The program opens, but when you try playing a song it closes by itself.<br />
+<strong>Cause:</strong> It may not have permission to access it’s own files.<br />
+<strong>Solutions:</strong></p>
+<ul>
+  <li>Try changing the permissions of the installation folder, allowing everyone to read and write.</li>
+  <li>Try executing the program as administrator.</li>
+</ul>
+
+<p><strong>Problem:</strong> The program doesn’t show the ip address on the top right corner of the screen, or the mobile phones can’t connect to the server.<br />
+<strong>Cause:</strong> The program cannot open the port to listen to the mobile devices.<br />
+<strong>Solutions:</strong></p>
+<ul>
+  <li>Try adding YouSing in the firewall’s list of allowed programs.</li>
+  <li>Try executing the program as administrator.</li>
+</ul>
+
+<h2 id="changelog">Changelog</h2>
+<h5 id="v110">v1.1.0</h5>
+<ul>
+  <li>Added <code class="highlighter-rouge">bootstrap</code> buttons and forms to improve the appearance</li>
+  <li>Added <code class="highlighter-rouge">fontawesome</code> icons for the controller</li>
+  <li>Added a check to prevent duplicate songs to be added to the playlist</li>
+  <li>The search page now loads more results when scrolled to the bottom</li>
+  <li>Excluded the search results wich are unavailable</li>
+  <li>Minor improvements on the layout, database structure and song management</li>
+</ul>
+
+<h2 id="dependencies">Dependencies</h2>
+<ul>
+  <li>Node.js
+    <ul>
+      <li>opener</li>
+      <li>quick-local-ip</li>
+      <li>sqlite3</li>
+      <li>ws</li>
+      <li>youtube-node</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="to-do-list">To-do list</h2>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Make an English help file and make the link point to the correct language file depending on the host settings</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Find a way to avoid showing unavailable videos on the search results</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Pack the application for easy to install</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Improve the quality of the icon</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Change the menu icon</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Add a verification when sending to the list to not allow sending songs that are already on the list</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Add Bootstrap or jQuery UI to improve the design and user experience</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Change the confirmation boxes to modal</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Add pagination to the results</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Add a “personal list” feature, where the users can rate the song they just sang and later check the “better” songs for them to sing</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Add a “mostly played” list, with suggestions of tracks based on what people sang on that device</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Fix the files permission issue</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Add a “loading” when sending files to the list to avoid multiple sendings when the server takes long to reply</li>
+</ul>
+
+<h1 id="português">Português</h1>
+
+<h2 id="sobre">Sobre</h2>
+<p>O YouSing é um programa de karaokê para festas criado no <code class="highlighter-rouge">Node.js</code>. Ele pesquisa no YouTube por músicas com versão de karaokê e as reproduz na tela do servidor. Vários usuários podem se conectar a ele com seus telefones sem precisar instalar nada no dispositivo móvel. As músicas adicionadas são colocadas em uma lista e reproduzidas em ordem.</p>
+
+<h2 id="características">Características</h2>
+<ul>
+  <li>Vasto catálogo de músicas e em constante crescimento: reproduz qualquer música disponível no YouTube como versão de karaokê</li>
+  <li>Controle o fluxo de músicas com seu dispositivo móvel
+    <ul>
+      <li>Pesquise e adicione músicas à fila</li>
+      <li>Reproduza/pause a execução</li>
+      <li>Pule para a próxima música da fila</li>
+      <li>Veja o que vem a seguir na reprodução e o que foi reproduzido anteriormente</li>
+    </ul>
+  </li>
+  <li>Vários usuários simultâneos</li>
+  <li>Não é necessário instalar nada nos dispositivos clientes: basta acessar o servidor com o navegador do seu celular</li>
+  <li>Localização: suporte para vários idiomas</li>
+</ul>
+
+<h2 id="screenshots-1">Screenshots</h2>
+<p><img src="https://github.com/rafaelff/YouSing/raw/master/Screenshots/01%20main%20screen.png" alt="Tela principal" /> | <img src="https://github.com/rafaelff/YouSing/raw/master/Screenshots/02%20search%20on%20main.png" alt="Busca na tela principal" />
+– | –
+<img src="https://github.com/rafaelff/YouSing/raw/master/Screenshots/03%20song%20playing.png" alt="Música executando" /> |
+<img src="https://github.com/rafaelff/YouSing/raw/master/Screenshots/04%20login%20on%20mobile.png" alt="Página de login no telefone celular" /> | <img src="https://github.com/rafaelff/YouSing/raw/master/Screenshots/05%20search%20on%20mobile.png" alt="Página de busca no telefone celular" /> 
+<img src="https://github.com/rafaelff/YouSing/raw/master/Screenshots/06%20send%20song%20on%20mobile.png" alt="Enviando música para a lista" /> |</p>
+
+<h2 id="como-usar">Como usar</h2>
+<h4 id="instalação">Instalação</h4>
+<h5 id="windows-64-bits-1">Windows 64 bits</h5>
+<p>Se você está executando o Windows 64bits, então tudo que você precisa fazer é baixar <a href="https://github.com/rafaelff/YouSing/raw/master/YouSing-x64.exe">este instalador</a> e executá-lo!</p>
+
+<p><strong>Importante:</strong> Seu antivirus pode impedir o software de ser instalado por ele não ser assinado, mas não há nada suspeito no código (você pode conferir o código fonte aqui, no github). Nesse caso, você pode ter que desabilitar o antivirus temporariamente e/ou adicionar o aplicativo na lista de programas confiáveis.
+https://www.virustotal.com/#/url/378891d7549aaa7ee69347c42b52e60fa493237e5388e9a878ddcacfa37cd1f5/detection</p>
+
+<p>Infelizmente, ainda não está disponível o instalador para a versão 32bits do Windows devido a alguns problemas com o empacotador. Se esse for o seu caso, leia a próxima sessão sobre como executá-lo pelo código fonte.</p>
+
+<h5 id="executando-pelo-código-fonte">Executando pelo código fonte</h5>
+<ul>
+  <li>Instale o Node.js se ainda não o tiver</li>
+  <li>Extraia os arquivos</li>
+  <li>Execute pela linha de comando <code class="highlighter-rouge">npm install</code> na pasta onde os arquivos foram extraídos</li>
+  <li>Abra o aplicativo por linha de comando <code class="highlighter-rouge">node main.js</code> na pasta instalada</li>
+</ul>
+
+<p><strong>Importante:</strong> No linux, execute como root <code class="highlighter-rouge">sudo node main.js</code> se não você não conseguirá conectar os aparelhos móveis</p>
+<h4 id="preparação">Preparação</h4>
+<ul>
+  <li>Inicie o servidor em um computador (um Raspberry Pi com Raspbian é sugerido para maior portabilidade)</li>
+  <li>Conecte o computador em uma tela grande <code class="highlighter-rouge">opcional</code></li>
+  <li>Certifique-se de que o computador está conectado à internet</li>
+  <li>Configure um amplificador com alguns microfones <code class="highlighter-rouge">opcional</code></li>
+  <li>Ligue o som do computador no amplificador <code class="highlighter-rouge">opcional</code></li>
+  <li>Conecte o celular dos cantores à mesma rede local que o servidor **</li>
+  <li>Acesse no navegador do celular o endereço IP fornecido na tela do servidor **</li>
+  <li>Procure músicas, adicione-as à playlist e divirta-se cantando junto com seus amigos!</li>
+</ul>
+
+<p>** o programa funciona sem os controles remotos, mas é recomendado para uma melhor experiência</p>
+
+<h2 id="troubleshooting-1">Troubleshooting</h2>
+<p><strong>Problema:</strong> O programa executa, mas quando uma música é enviada para tocar o programa fecha sozinho.<br />
+<strong>Causa:</strong> Pode ser que o programa não tem acesso aos seus próprios arquivos.<br />
+<strong>Soluções:</strong></p>
+<ul>
+  <li>Tente mudar as permissões do diretórios de instalação, permitindo a todos leitura e execução.</li>
+  <li>Tente executar o programa como administrador.</li>
+</ul>
+
+<p><strong>Problema:</strong> O programa não mostra o endereço IP no canto superior direito da tela, ou os aparelhos telefônicos não conseguem conectar-se com o servidor.<br />
+<strong>Causa:</strong> O programa não consegue abrir a porta para escutar os aparelhos telefônicos.<br />
+<strong>Soluções:</strong></p>
+<ul>
+  <li>Tente adicionar YouSing à lista do firewall de programas seguros.</li>
+  <li>Tente executar o programa como administrador.</li>
+</ul>
+
+<h2 id="changelog-1">Changelog</h2>
+<h5 id="v110-1">v1.1.0</h5>
+<ul>
+  <li>Adicionado <code class="highlighter-rouge">bootstrap</code> nos botões e formulários para melhorar a aparência</li>
+  <li>Adicionado ícones <code class="highlighter-rouge">fontawesome</code> no controle</li>
+  <li>Adicionado uma verificação para prevenir o envio à playlist de músicas duplicadas</li>
+  <li>A página de busca agora carrega mais resultados quando atinge o final da página</li>
+  <li>Removidos os resultados indisponíveis</li>
+  <li>Pequenas melhorias no layout, estrutura do banco de dados e manipulação das músicas</li>
+</ul>
+
+<h2 id="dependências">Dependências</h2>
+<ul>
+  <li>Node.js
+    <ul>
+      <li>opener</li>
+      <li>quick-local-ip</li>
+      <li>sqlite3</li>
+      <li>ws</li>
+      <li>youtube-node</li>
+    </ul>
+  </li>
+</ul>
+
+
+      </section>
+      <footer>
+        
+        <p>This project is maintained by <a href="https://github.com/rafaelff">rafaelff</a></p>
+        
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="/YouSing/assets/js/scale.fix.js"></script>
+    
+  </body>
+</html>
