@@ -84,21 +84,6 @@ Unfortunatelly, no installer is provided yet for 32bits version of Windows due t
   - ws
   - youtube-node
 
-## To-do list
-- [ ] Make an English help file and make the link point to the correct language file depending on the host settings
-- [x] Find a way to avoid showing unavailable videos on the search results
-- [ ] Pack the application for easy to install
-- [ ] Improve the quality of the icon
-- [x] Change the menu icon
-- [x] Add a verification when sending to the list to not allow sending songs that are already on the list
-- [x] Add Bootstrap or jQuery UI to improve the design and user experience
-- [ ] Change the confirmation boxes to modal
-- [x] Add pagination to the results
-- [ ] Add a "personal list" feature, where the users can rate the song they just sang and later check the "better" songs for them to sing
-- [ ] Add a "mostly played" list, with suggestions of tracks based on what people sang on that device
-- [ ] Fix the files permission issue
-- [x] Add a "loading" when sending files to the list to avoid multiple sendings when the server takes long to reply
-
 # Português
 
 ## Sobre
